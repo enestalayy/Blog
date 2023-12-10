@@ -1,0 +1,69 @@
+input {
+    background-color: transparent;
+    border: 2px solid #41B883;
+    border-radius: 5px;
+}
+.dark-mode input:focus {
+    border-color: aqua;
+}
+.dark-mode input:active {
+    border-color: aqua;
+}
+.dark-mode input:focus-visible {
+    border-color: aqua;
+    outline: none;
+}
+.light-mode input:focus {
+    border-color: blue;
+}
+.light-mode input:active {
+    border-color: blue;
+}
+.light-mode input:focus-visible {
+    border-color: blue;
+    outline: none;
+}
+.dark-mode-auth input:focus {
+    border-color: aqua;
+}
+.dark-mode-auth input:active {
+    border-color: aqua;
+}
+.dark-mode-auth input:focus-visible {
+    border-color: aqua;
+    outline: none;
+}
+.light-mode-auth input:focus {
+    border-color: blue;
+}
+.light-mode-auth input:active {
+    border-color: blue;
+}
+.light-mode-auth input:focus-visible {
+    border-color: blue;
+    outline: none;
+}
+
+svg.p-icon {
+    top: 10px;
+    right: -22px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+:root {
+    --dark-bg: rgb(5, 5, 33);
+    --light-bg: beige;
+    --dark-text: azure;
+    --light-text: rgb(65, 185, 131);
+    --dark-bg-darkblue: rgb(6, 6, 41);
+    --dark-green: #05905d;
+}
+/* .dark-mode {
+    background-color: rgb(5, 5, 33);
+    color: azure;
+}
+.light-mode{
+    background-color: beige ;
+    color: #41B883;
+} */

@@ -1,0 +1,26 @@
+{
+  "auth": "giris",
+  "dark": "Koyu",
+  "light": "Hakkında",
+  "home": "Ana Sayfa",
+  "fullName": "İsim Soyisim",
+  "logIn": "Giriş yap",
+  "signUp": "Kayıt ol",
+  "email": "E-posta",
+  "password": "Şifre",
+  "phone": "Telefon",
+  "forgot": "Şifrenizi mi unuttunuz?",
+  "nameError": "Geçerli bir isim soyisim olmalı",
+  "emailError": "Geçerli bir e-posta adresi olmalı",
+  "passwordError": {
+    "contain": "Şifre şunları içermelidir;",
+    "character": "en az 8 harf",
+    "uppercase": "en az 1 büyük harf",
+    "number": "en az 1 numara",
+    "special": "en az 1 özel karakter"
+  },
+  "emailExistWarn": "Bu username zaten kullanılıyor.",
+  "incorrectError": "E-posta veya şifre yanlış",
+  "loginWith": "Diğer Seçeneklerle Giriş Yap"
+}
+

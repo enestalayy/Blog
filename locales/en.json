@@ -1,0 +1,25 @@
+{
+    "auth": "Auth",
+    "dark": "Dark",
+    "light": "Light",
+    "home": "Home",
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "fullName": "Full Name",
+    "email": "E-mail",
+    "password": "Password",
+    "phone": "Phone",
+    "forgot": "Forgot your password?",
+    "nameError": "Must be a valid name",
+    "emailError": "Must be a valid e-mail",
+    "passwordError": {
+        "contain": "Password must contain;",
+        "character": "at least 8 characters",
+        "uppercase": "at least 1 upper case character",
+        "number": "at least 1 number",
+        "special": "at least 1 special character"
+    },
+    "emailExistWarn": "This e-mail is already in use",
+    "incorrectError": "E-mail or password incorrect",
+    "loginWith": "Log In with Other Options"
+}
