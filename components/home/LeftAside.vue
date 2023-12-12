@@ -12,7 +12,7 @@
                         {{ post.content }}
                     </p>
                     <div class="flex items-center justify-around pt-1">
-                        <span class="pi pi-heart">{{ post.likes && post.likes.length }}</span>
+                        <PostLikeButton :post="post" />
                         <span class="pi pi-comment">{{ post.comments && post.comments.length }}</span>
                     </div>
                 </PrimeFieldset>

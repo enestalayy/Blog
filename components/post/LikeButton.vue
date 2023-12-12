@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PrimeButton :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" @click="likePost" class="pi">{{ getLikeNumber }}</PrimeButton>
+        <PrimeButton :class="isLiked() ? 'pi-heart-fill' : 'pi-heart'" @click="updateLikes" class="pi">{{ postLike()  }}</PrimeButton>
     </div>
 </template>
 
@@ -13,8 +13,6 @@
                 supabase: useSupabaseClient(),
                 postStore: usePostStore(),
                 likeStore: useLikesStore(),
-                isLiked: false,
-                likes: null
             }
         },
         computed: {
@@ -22,30 +20,39 @@
                 return this.sessionStore.$state.session
             },
             getLikes() {
-                return this.likeStore.$state.likes
+                const likes = this.likeStore.$state.likes
+                return likes
             },
-            getLikeNumber() {
-                const postLike = this.getLikes.filter((e) => e.post_id === this.post.id)
-                return postLike.length
-            }
+            
         },
         mounted() {
             this.likeStore.getLikes()
+            this.postLike()
+            this.isLiked()
         },
         methods: {
-            async likePost() {
-                this.isLiked = !this.isLiked
-                if (this.isLiked === true) {
-                    try {
+            async updateLikes() {
+                const isLiked = this.isLiked()
+                try {
+                    if (!isLiked) {
                         await this.likeStore.likePost(this.post, this.currentUser);
-                    } catch (error) {
-                        console.error("Like error:", error);
+                    } else {
+                        await this.likeStore.unlikePost(this.post, this.currentUser)
                     }
-                } else {
-
+                } catch (error) {
+                    console.error("Like error:", error);
                 }
+            },
+            postLike() {
+                const postLike = this.getLikes.filter((e) => e.post_id === this.post.id)
+                return postLike.length
+            },
+            isLiked() {
+                const currentPost = this.getLikes.find((e) => e.post_id === this.post.id && e.user_id === this.currentUser.id)
+                return currentPost ? true : false
             }
-        }
+        },
+
 
     }
 </script>
