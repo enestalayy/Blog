@@ -1,7 +1,4 @@
-import { defineStore } from "pinia";
-
 const COOKIE_OPTIONS = { maxAge: 86400, path: "/" };
-
 export const useLocaleStore = defineStore({
   id: "locale",
   state: () => ({

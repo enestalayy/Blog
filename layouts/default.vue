@@ -1,21 +1,34 @@
 <template>
-    <div :class="{ 'dark-mode': isDarkMode }" class="min-h-screen">
+    <div :class="{ 'dark-mode': isDarkMode, 'light-mode': !isDarkMode }" class="min-h-screen">
         <header class="shadow-sm bg-white w-full">
             <NavBar />
         </header>
-        <main class="w-3/5 my-5 mx-auto text-center">
+        <div class="flex flex-row my-5 items-start">
+            <aside class="w-1/5 rounded text-center">
+                <HomeLeftAside />
+            </aside>
+        <main class="w-2/5 rounded mx-auto text-center">
             <slot />
         </main>
+        <aside class="w-1/5 rounded text-center">
+            <h1>Right side</h1>
+        </aside>
+        </div>
     </div>
 </template>
 <script setup>
+
     const localeStore = useLocaleStore()
         localeStore.initializeDarkModeFromCookie();
     const isDarkMode = computed(() => localeStore.$state.isDarkMode)
 </script>
 <style>
 .dark-mode {
-    background-color: rgb(21, 21, 21);
-    color: azure;
+    background-color: var(--dark-bg-darkblue);
+    color: var(--dark-text);
+}
+.light-mode {
+    background-color: var(--light-bg);
+    color: var(--dark-bg-darkblue);
 }
 </style>

@@ -118,7 +118,6 @@
 @keyframes move {
     to {
         top: -50px;
-        /* transform: rotate(360deg); */
     }
 }
 </style>

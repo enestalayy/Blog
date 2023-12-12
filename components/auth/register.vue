@@ -98,10 +98,13 @@
                     const { data, error } = await this.supabase.auth.signUp({
                     email: this.email,
                     password: this.password,
-                    data: {
+                    full_name: this.name,
+                    options: {
+                        data: {
                         full_name: this.name,
                         phone: this.phone,
                     },
+                    }
                     });
                     if (error) {
                         console.error('Supabase hatası:', error.message);
