@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "nuxt-primevue",
     ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
-    '@nuxt/content',
+    "@nuxt/content",
     // "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/i18n",
     "@nuxtjs/tailwindcss",
@@ -62,22 +62,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  // postcss: {
-  //   plugins: {
-  //     tailwindcss: {},
-  //     autoprefixer: {},
-  //   },
-  // },
 
-  content: {
-    markdown: {
-      preset: "default",
-      breaks: true, // Satır sonlarında otomatik yeni satıra geçme
-      html: true, // HTML etiketlerine izin verme
-      linkify: true, // URL'leri otomatik bağlantılara dönüştürme
-      typographer: true, // İmla düzeltmelerini etkinleştirme
-    },
-  },
   primevue: {
     cssLayerOrder: "tailwind-base, primevue, tailwind-utilities",
     options: {

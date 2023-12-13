@@ -15,7 +15,7 @@
                     <span class="font-bold">{{ comment.user.full_name }}</span>
                 </div>
             </template>
-            <p class="m-0 text-xs" > {{ comment.content }}</p>
+            <p class="m-0 text-xs" >{{ comment.content }}</p>
             <div class="flex items-center justify-around pt-1">
             </div>
         </PrimeFieldset>

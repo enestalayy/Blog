@@ -1,5 +1,6 @@
 {
     "auth": "Auth",
+    "profile": "Profile",
     "dark": "Dark",
     "light": "Light",
     "home": "Home",

@@ -30,7 +30,7 @@
                     </li>
             </ul>
             <span class="p-float-label w-fit z-10">
-                <PrimeInputMask v-model="phone" mask="(999) 999-9999" />
+                <PrimeInputMask v-model="phone" mask="(+99) 999-999-9999" />
                 <label class="absolute left-2"  for="phone">{{ $t('phone') }}</label>
             </span>
             <PrimeToast class="rounded w-fit bg-yellow-500" />

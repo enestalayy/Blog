@@ -28,7 +28,6 @@ export const useCommentStore = defineStore({
     },
 
     getCurrentComments(id) {
-      console.log(this.comments);
       return this.comments.filter((e) => e.post_id == id);
     },
     async getAuthor(id) {
@@ -40,7 +39,6 @@ export const useCommentStore = defineStore({
           console.error("Yazar verisi çekme hatası:", error.message);
           return null;
         }
-        console.log(data);
         return data.user.user_metadata;
       } catch (error) {
         console.error("Bir hata oluştu:", error.message);

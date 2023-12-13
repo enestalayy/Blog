@@ -18,7 +18,10 @@
                             <span>{{ locale.code === $i18n.locale ? '' : locale.name }}</span>
                         </NuxtLink>
                     </li>
-                    {{ session ? true : false }}
+                    <li>
+                        <nuxt-link v-if="session" :to="localePath({ name: 'profile' })"><PrimeAvatar  image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /></nuxt-link>
+                        <nuxt-link v-else :to="localePath({ name: 'auth' })"> Sign in</nuxt-link>
+                    </li>
                 </ul>
             </nav>
     </div>

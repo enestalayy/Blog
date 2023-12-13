@@ -1,6 +1,6 @@
 <template>
     <div>
-        <PrimeCard v-for="(post, index) in posts" :key="index" class="w-full border-2 border-[lime] rounded-xl p-2 my-">
+        <PrimeCard v-for="(post, index) in posts" :key="index" class="w-full border-2 rounded-xl p-2 my-">
             <template #header>
                 <h1>{{post.user.full_name}}</h1>
             </template>

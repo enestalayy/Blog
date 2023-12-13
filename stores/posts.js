@@ -5,6 +5,7 @@ export const usePostStore = defineStore({
   }),
   actions: {
     async getPosts() {
+      console.log('getPosts çalıştı')
       try {
         const supabase = useSupabaseClient();
         const { data: postData, error: postError } = await supabase
@@ -34,7 +35,6 @@ export const usePostStore = defineStore({
       try {
         const supabase = useSupabaseClient();
         const { data, error } = await supabase.auth.admin.getUserById(id);
-
         if (error) {
           console.error("Yazar verisi çekme hatası:", error.message);
           return null;
@@ -47,6 +47,11 @@ export const usePostStore = defineStore({
     },
     getCurrentPost(id) {
       return this.posts.find((e) => e.id == id)
-    }
+    },
+    getUsersPosts(id) {
+      console.log('getUsersPOst çalıştı');
+      return this.posts.filter((e) => e.author_id === id)
+    },
+    
   },
 });
