@@ -1,25 +1,16 @@
+<script setup>
+const postStore = usePostStore();
+onMounted(() => {
+  postStore.getPosts();
+});
+const getPosts = computed(() => postStore.posts);
+console.log(getPosts)
+</script>
+
 <template>
     <div>
-        <h1>Welcome Home!!</h1>
-        <HomePostCard />
-
+        <HomePostCard :posts="getPosts" />
     </div>
 </template>
 
-<script>
-    export default {
-        layout: 'default',
-        data() {
-            return {
-            }
-        },
-        computed: {
 
-        }
-
-    }
-</script>
-
-<style lang="scss" scoped>
-
-</style>

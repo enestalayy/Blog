@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "nuxt-primevue",
     ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
+    '@nuxt/content',
     // "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/i18n",
     "@nuxtjs/tailwindcss",
@@ -56,7 +57,7 @@ export default defineNuxtConfig({
     },
     customRoutes: "config",
     pages: {
-      'auth/index': {
+      "auth/index": {
         tr: "/giris",
       },
     },
@@ -67,6 +68,16 @@ export default defineNuxtConfig({
   //     autoprefixer: {},
   //   },
   // },
+
+  content: {
+    markdown: {
+      preset: "default",
+      breaks: true, // Satır sonlarında otomatik yeni satıra geçme
+      html: true, // HTML etiketlerine izin verme
+      linkify: true, // URL'leri otomatik bağlantılara dönüştürme
+      typographer: true, // İmla düzeltmelerini etkinleştirme
+    },
+  },
   primevue: {
     cssLayerOrder: "tailwind-base, primevue, tailwind-utilities",
     options: {

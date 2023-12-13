@@ -25,14 +25,11 @@ export const usePostStore = defineStore({
             };
           })
         );
-
         this.posts = postsWithAuthors;
-        console.log(this.posts);
       } catch (error) {
         console.error("Bir hata oluştu:", error.message);
       }
     },
-
     async getAuthor(id) {
       try {
         const supabase = useSupabaseClient();
@@ -42,27 +39,14 @@ export const usePostStore = defineStore({
           console.error("Yazar verisi çekme hatası:", error.message);
           return null;
         }
-        console.log(data.user);
         return data.user.user_metadata;
       } catch (error) {
         console.error("Bir hata oluştu:", error.message);
         return null;
       }
     },
-    async likePost(post, currentUser) {
-      const supabase = useSupabaseClient();
-      const updatedLikes = post.likes.length > 0 ? [...post.likes, currentUser] : [currentUser];
-      console.log(post.id)
-      const { data, error } = await supabase
-        .from("posts")
-        .update({ likes: updatedLikes })
-        .eq("id", post.id)
-        .select();
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Post updated with new likes:", data);
-      }
-    },
+    getCurrentPost(id) {
+      return this.posts.find((e) => e.id == id)
+    }
   },
 });
