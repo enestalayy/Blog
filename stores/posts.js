@@ -5,7 +5,6 @@ export const usePostStore = defineStore({
   }),
   actions: {
     async getPosts() {
-      console.log('getPosts çalıştı')
       try {
         const supabase = useSupabaseClient();
         const { data: postData, error: postError } = await supabase

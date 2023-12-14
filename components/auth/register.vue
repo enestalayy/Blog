@@ -47,24 +47,23 @@
                 i18n: useI18n(),
                 localeStore: useLocaleStore(),
                 inputCheck: useInputCheck(),
-                toast: useToast(),
                 name: '',
                 phone: '',
                 email: '',
                 password: '',
                 emailFocused: false,
                 nameFocused: false,
-                nameValid: false,
                 passwordFocused: false,
                 formValid: false,
                 showPasswordError: false,
-                userExists: false,
-                existEmail: []
             };
         },
         computed: {
             passwordError() {
                 return this.inputCheck.$state.passwordError
+            },
+            nameValid() {
+                return this.inputCheck.$state.nameValid
             },
             emailValid() {
                 return this.inputCheck.$state.emailValid
@@ -78,7 +77,7 @@
         },  
         methods: {
             checkFullName() {
-                this.nameValid = (this.name && this.name.trim().split(/\s+/).length >= 2);
+                this.inputCheck.checkFullName(this.name)
                 this.checkFormValidity();
             },
             checkEmail() {
@@ -90,8 +89,7 @@
                 this.checkFormValidity();
             },
             checkFormValidity() {
-                this.existEmail && (this.userExists = this.existEmail.find((e) => e === this.email))
-                this.formValid = this.passwordValid && this.nameValid && this.emailValid && !this.userExists
+                this.formValid = this.passwordValid && this.nameValid && this.emailValid
             },
             async submitRegister() {
                 try {
@@ -103,6 +101,7 @@
                         data: {
                         full_name: this.name,
                         phone: this.phone,
+                        avatar: '',
                     },
                     }
                     });
@@ -114,42 +113,10 @@
                 } catch (error) {
                     console.error('Bir hata oluştu:', error.message);
                 }
-                // if (this.inputCheck.emailExist(this.email)){
-                //     this.toast.add({ severity: 'warn', summary: this.$t('emailExistWarn') });
-                //     console.log('kullanıcı mevcut!')
-                //     this.existEmail.push(this.email)
-                //     this.checkFormValidity()
-                // }else {
-                //     try {
-                //         const { data, error } = await this.supabase.from('users').insert([
-                //         { 
-                //             full_name: this.name, 
-                //             email: this.email,
-                //             password: this.password,
-                //             phone: this.phone, 
-                //         },
-                //         ]);
-                //         if (error) {
-                //             console.error('Supabase hatası:', error);
-                //         } else {
-                //             console.log('Kullanıcı başarıyla eklendi:', data);
-                //         }
-                //     } catch (error) {
-                //         console.error('Bir hata oluştu:', error.message);
-                //     }
-                // }
             },
         }
     }
 </script>
 <style>
-.p-toast-message-content {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    width: 30vw;
-}
-.p-toast-message-text {
-    padding-left: 10px;
-}
+
 </style>

@@ -2,6 +2,7 @@ export const useSessionStore = defineStore({
   id: "session",
   state: () => ({
     session: null,
+    editAccount: false,
   }),
   actions: {
     async getSession() {
@@ -20,46 +21,25 @@ export const useSessionStore = defineStore({
       console.log(formattedDate);
       return formattedDate;
     },
-    async onUpload(event) {
+    toggleEditAccount() {
+      console.log(this.editAccount);
+      this.editAccount = !this.editAccount;
+    },
+    async editMetaData(props) {
       try {
-        const supabase = useSupabaseClient(); // Make sure to get the Supabase client instance
-        const avatarFile = event.files[0];
-
-        // 1. Upload the file to Supabase Storage
-        const { data: storageData, error: storageError } =
-          await supabase.storage
-            .from("avatars")
-            .upload("public/avatar1.png", avatarFile, {
-              cacheControl: "3600",
-              upsert: false,
-            });
-
-        if (storageError) {
-          console.error("Dosya yüklenirken bir hata oluştu:", storageError);
-          return;
+        const infoType = props[0];
+        const value = props[1];
+        const supabase = useSupabaseClient();
+        const { data, error } = await supabase.auth.updateUser({
+          data: { [infoType]: `${value}` },
+        });
+        if (error) {
+          console.error("Error updating user:", error.message);
+        } else {
+          console.log("Updated user data:", data);
         }
-
-        console.log("Dosya başarıyla yüklendi:", storageData);
-
-        // 2. Update the user's avatar in the Supabase User table
-        const { data: userData, error: userError } = await supabase
-          .auth // Assuming your user table is named 'users'
-          .updateUser({
-            data: {avatar: storageData.Key}, // Assuming the storage key is the avatar URL
-          })
-          .eq("id", this.session.id);
-
-        if (userError) {
-          console.error(
-            "Kullanıcı avatarı güncellenirken bir hata oluştu:",
-            userError
-          );
-          return;
-        }
-
-        console.log("Kullanıcı avatarı başarıyla güncellendi:", userData);
       } catch (error) {
-        console.error("Dosya yüklenirken bir hata oluştu:", error.message);
+        console.error(error)
       }
     },
   },

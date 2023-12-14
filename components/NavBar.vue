@@ -1,13 +1,16 @@
 <template>
     <div>
-        <nav class="p-4 w-full flex items-center justify-between bg-[#41B883] text-[beige]">
+        <nav class="p-1 w-full flex items-center justify-between bg-[#41B883] text-[beige]">
                 <nuxt-link :to="localePath({ name: 'index' })">
-                <img src="../assets/images/2023-12-10-removebg-preview.png" class="h-8" alt="image">
+                    <img src=".././assets/images/2023-12-10-removebg-preview.png" class="h-8" alt="">
                 </nuxt-link>
                 <ul class="flex items-center gap-4">
 
                     <li>
                         <nuxt-link :to="localePath({ name: 'auth' })">{{ $t('auth') }}</nuxt-link>
+                    </li>
+                    <li>
+                        <button @click="signOut" >Sign out</button>
                     </li>
                     <li>
                         <button :class="darkMode ? 'pi pi-moon' : 'pi pi-sun'" @click="localeStore.toggleDarkMode()" ></button>
@@ -19,7 +22,9 @@
                         </NuxtLink>
                     </li>
                     <li>
-                        <nuxt-link v-if="session" :to="localePath({ name: 'profile' })"><PrimeAvatar  image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" /></nuxt-link>
+                        <nuxt-link v-if="getUser" :to="localePath({ name: 'profile' })">
+                            <ProfileAvatar :userInfo="getUser.user_metadata" :avatarContainer="'avatar-container-md'" />
+                        </nuxt-link>
                         <nuxt-link v-else :to="localePath({ name: 'auth' })"> Sign in</nuxt-link>
                     </li>
                 </ul>
@@ -32,12 +37,13 @@
             return {
                 i18n: useI18n(),
                 localeStore: useLocaleStore(),
-                sessionStore: useSessionStore(),
+                user: useSupabaseUser(),
+                supabase: useSupabaseClient()
             }
         },
-        mounted() {
-            this.sessionStore.getSession()
-        },
+        // mounted() {
+        //     this.sessionStore.getSession()
+        // },
         computed: {
             darkMode() {
                 return this.localeStore.$state.isDarkMode;
@@ -45,10 +51,20 @@
             availableLocales() {
                 return (this.i18n.locales).filter(i => i.code !== this.i18n.locale.value)
             },
-            session() {
-                return this.sessionStore.$state.session
+            getUser() {
+                return this.user
             }
         },
-
+        methods: {
+            async signOut() {
+            try {
+                const { error } = await this.supabase.auth.signOut()
+                if (error) throw error
+            } catch (error) {
+                alert(error.message)
+            } finally {
+            }
+            }
+        }
     }
 </script>

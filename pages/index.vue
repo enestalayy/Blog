@@ -4,6 +4,7 @@ onMounted(() => {
   postStore.getPosts();
 });
 const getPosts = computed(() => postStore.posts);
+console.log(getPosts)
 </script>
 
 <template>

@@ -2,9 +2,9 @@ export const useInputCheck = defineStore({
   id: "inputCheck",
   state: () => ({
     passwordError: [],
+    nameValid: false,
     emailValid: false,
     passwordValid: false,
-    passwordCorrect: false
   }),
   actions: {
     checkPassword(password) {
@@ -29,25 +29,10 @@ export const useInputCheck = defineStore({
       this.emailValid = emailRegex.test(email);
     },
     supabase() {
-      return useSupabaseClient()
+      return useSupabaseClient();
     },
-    async emailExist(email) {
-      const supabase = this.supabase()
-      try {
-        const { data, error } = await supabase
-          .from('users')
-          .select('email, password')
-          .eq('email', email)
-          .single()
-        if (error) {
-          console.error('Supabase hatası:', error);
-          return false;
-        }
-
-      } catch (error) {
-        console.error('Bir hata oluştu:', error.message); 
-        return false;
-      }
+    checkFullName(name) {
+      this.nameValid = name && name.trim().split(/\s+/).length >= 2;
     },
   },
 });
