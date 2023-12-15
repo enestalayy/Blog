@@ -22,6 +22,7 @@
   },
   "emailExistWarn": "Bu username zaten kullanılıyor.",
   "incorrectError": "E-posta veya şifre yanlış",
-  "loginWith": "Diğer Seçeneklerle Giriş Yap"
+  "loginWith": "Diğer Seçeneklerle Giriş Yap",
+  "noPost": "Henüz paylaşılan post yok."
 }
 

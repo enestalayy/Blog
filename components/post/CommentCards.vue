@@ -11,8 +11,7 @@
         <PrimeFieldset v-if="getComments" v-for="(comment, index) in getComments" :key="index" class="border-2 text-start pl-2 py-2">
             <template #legend>
                 <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
-                    <PrimeAvatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
-                    <span class="font-bold">{{ comment.user.full_name }}</span>
+                    <PostUserCard :user="comment.user" />
                 </div>
             </template>
             <p class="m-0 text-xs" >{{ comment.content }}</p>

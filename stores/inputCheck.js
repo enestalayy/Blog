@@ -34,5 +34,6 @@ export const useInputCheck = defineStore({
     checkFullName(name) {
       this.nameValid = name && name.trim().split(/\s+/).length >= 2;
     },
+
   },
 });

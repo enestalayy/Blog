@@ -51,6 +51,6 @@ export const usePostStore = defineStore({
       console.log('getUsersPOst çalıştı');
       return this.posts.filter((e) => e.author_id === id)
     },
-    
+
   },
 });

@@ -22,5 +22,6 @@
     },
     "emailExistWarn": "This e-mail is already in use",
     "incorrectError": "E-mail or password incorrect",
-    "loginWith": "Log In with Other Options"
+    "loginWith": "Log In with Other Options",
+    "noPost": "There is no post shared yet."
 }

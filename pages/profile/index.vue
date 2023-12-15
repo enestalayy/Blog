@@ -2,13 +2,16 @@
     <div>
         <ProfileAccount />
         <HomePostCard class="rounded-none" :posts="getUsersPosts" />
+        <PostCreatePost />
+        <h1 v-if="!getUsersPosts.length > 0">{{ $t('noPost') }}</h1>
+
     </div>
 </template>
 
 <script setup>
 definePageMeta({
-        layout: 'profile'
-    })
+    layout: 'profile'
+})
 const postStore = usePostStore()
 const user = useSupabaseUser()
 onMounted(() => {

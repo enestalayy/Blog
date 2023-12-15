@@ -8,9 +8,7 @@
                 </div>
             </template>
             <h3>{{ post.title }}</h3>
-            <p class="m-0 text-xs line-clamp-3">
-                {{ post.content }}
-            </p>
+            <div v-html="post.content" class="m-0 text-xs line-clamp-3"></div>
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
                 <span class="pi pi-comment">{{ post.comments && post.comments.length }}</span>

@@ -7,9 +7,8 @@
             <template #title> {{ post.title }} </template>
             <template #subtitle> {{post.tags}} </template>
             <template #content>
-                <p class="m-0 text-start line-clamp-3">
-                    {{post.content}}
-                </p>
+                <div v-html="post.content" class="m-0 text-start line-clamp-3">
+                </div>
             </template>
             <template  #footer>
                 <div class="w-3/4 mx-auto flex items-center justify-between">
