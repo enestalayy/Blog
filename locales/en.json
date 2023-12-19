@@ -23,5 +23,6 @@
     "emailExistWarn": "This e-mail is already in use",
     "incorrectError": "E-mail or password incorrect",
     "loginWith": "Log In with Other Options",
-    "noPost": "There is no post shared yet."
+    "noPost": "There is no post shared yet.",
+    "signUpToast": "Account created successfully! Please check your inbox to confirm your email address."
 }

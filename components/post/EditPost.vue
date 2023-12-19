@@ -1,9 +1,11 @@
 <template>
-    <div>
-        <PrimeButton label="Show" icon="pi pi-external-link" @click="visible = true" />
+    <div  class="card flex justify-content-center ">
+        <PrimeButton v-if="!props.post" icon="pi pi-plus" class="border-2 rounded w-7 h-7 createPostBtn" @click="visible = true" />
+        <PrimeButton v-else  type="button" icon="pi pi-ellipsis-v" @click="toggle" class="text-xs absolute right-0 top-[-15px]" aria-haspopup="true" aria-controls="overlay_menu" />
+        <PrimeMenu ref="menuRef" id="overlay_menu" :model="items" :popup="true" />
         <PrimeDialog v-model:visible="visible" modal header="Header" class="bg-[beige] rounded-xl dialog" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <template #header>
-                <PostUserCard class="pl-2 p-1" :user="metaData" />
+                <PostUserCard class="pl-2 p-1" :userInfo="postAuthor" :avatarContainer="'avatar-container-sm'" />
                 <PrimeInputText v-model="title" required class="p-1" placeholder="Type a Title*" />
                 <div class="p-float-label w-40 relative">
                     <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="Tags" optionLabel="name" class="w-full p-1 text-[beige] rounded bg-[var(--dark-green)] " />
@@ -13,7 +15,6 @@
             <Editor v-model="content" placeholder="Type Here..." editorStyle="height: 320px">
                 <template v-slot:toolbar>
                     <span class="ql-formats w-full flex flex-row items-center justify-between text-red-500">
-                        <select v-tooltip.bottom="'Font Size'" class="ql-size"></select>
                         <select class="ql-font" v-tooltip.bottom="'Font Style'"></select>
                         <button v-tooltip.bottom="'Bold'" class="ql-bold">1</button>
                         <button v-tooltip.bottom="'Italic'" class="ql-italic">2</button>
@@ -24,40 +25,23 @@
                 </template>
             </Editor>
             <template  #footer>
-                <PrimeButton class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Share Post" @click="createPost" autofocus />
+                <PrimeButton v-if="props.post" @click="updatePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Update Post" autofocus />
+                <PrimeButton v-else @click="sharePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Share Post" autofocus />
             </template>
         </PrimeDialog>
         <div v-show="visible" class="backgroundBlur"></div>
     </div>
 </template>
+
 <script setup>
 import Editor from 'primevue/editor';
-const visible = ref(false);
-const user = useSupabaseUser()
-const metaData = computed(() => user.value.user_metadata)
+const props = defineProps(['post'])
 const supabase = useSupabaseClient()
-const title = ref()
-const content = ref()
-const selectedTag = ref()
-
-const createPost = async () => {
-    try {
-        console.log( typeof title.value)
-        console.log(typeof selectedTag.value.name)
-        console.log(typeof content.value)
-        const { data, error } = await supabase
-        .from('posts')
-        .insert({
-            title: title.value, content: JSON.stringify( content.value ), tags: selectedTag.value.name,
-            is_published: true
-        })
-        error && console.error(error)
-        console.log(data)
-    } catch (error) {
-        console.error(error)
-    }
-}
-
+const user = useSupabaseUser()
+const postStore = usePostStore()
+const sessionStore = useSessionStore()
+const postAuthor = user.value ? user.value : null;
+const visible = ref(false);
 
 const Tags = ref([
     { name: 'Technology Trends' },
@@ -82,7 +66,62 @@ const Tags = ref([
     { name: 'Gaming and Entertainment' },
     { name: 'Other..' },
 ]);
+const content = ref(props.post && props.post.content)
+const title = ref(props.post && props.post.title)
+const selectedTag = ref(props.post && Tags.value.find((e) => e.name === props.post.tags))
+const sharePost = async () => { 
+    try {
+    const { error } = await supabase
+    .from('posts')
+    .insert({
+        title: title.value, content: content.value , tags: selectedTag.value.name,
+    })
+    error && console.error(error)
+    sessionStore.navigateToHome()
+    visible.value = false
+    } catch (error) {
+        console.error(error)
+    }
+ }
+const updatePost = async () => { 
+    try {
+    const { error } = await supabase
+    .from('posts')
+    .update({
+        title: title.value, content: content.value , tags: selectedTag.value.name,
+    })
+      .eq('id', props.post.id)
+    error && console.error(error)
+    sessionStore.navigateToHome()
+    visible.value = false
+    } catch (error) {
+        console.error(error)
+    }
+ }
+
+const items = ref([
+  {
+    label: 'Edit Post',
+    icon: 'pi pi-file-edit',
+    command: () => { visible.value = true  }
+  },
+  {
+    label: 'Delete Post',
+    icon: 'pi pi-trash',
+    command: () => { postStore.deletePost(props.post.id)  }
+  },
+]);
+
+const menuRef = ref(null);
+
+const toggle = (event) => {
+  if (menuRef.value) {
+    menuRef.value.toggle(event);
+  }
+};
+
 </script>
+
 
 <style>
 .ql-formats {
@@ -102,7 +141,7 @@ const Tags = ref([
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  z-index: 1000;
+  z-index: 10000;
 }
 .dialog {
     box-shadow: 0 0 15px beige;
@@ -114,5 +153,8 @@ const Tags = ref([
 .p-dropdown-items-wrapper {
     border-radius: 10px;
     background-color: beige;
+}
+.createPostBtn:hover {
+    box-shadow: 0 0 10px beige;
 }
 </style>

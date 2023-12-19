@@ -11,6 +11,8 @@ export const useLikesStore = defineStore({
       this.likes = data;
     },
     async likePost(post, currentUser) {
+      console.log(post.id)
+      console.log(currentUser.id)
       const supabase = useSupabaseClient();
       const { data, error } = await supabase
         .from("likes")

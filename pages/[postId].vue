@@ -11,7 +11,6 @@
         postStore.getPosts();
     });
     const post = computed(() => {
-        console.log(postStore.getCurrentPost(postId))
         return postStore.getCurrentPost(postId)
     })
     const comments = computed(() => commentStore.getCurrentComments(postId))
@@ -38,9 +37,3 @@
         <PostCommentCards :showComment="showComment" :postId="postId" />
     </div>
 </template>
-
-
-
-<style lang="scss" scoped>
-
-</style>

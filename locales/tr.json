@@ -23,6 +23,7 @@
   "emailExistWarn": "Bu username zaten kullanılıyor.",
   "incorrectError": "E-posta veya şifre yanlış",
   "loginWith": "Diğer Seçeneklerle Giriş Yap",
-  "noPost": "Henüz paylaşılan post yok."
+  "noPost": "Henüz paylaşılan post yok.",
+  "signUpToast": "Hesabınız başarıyla oluşturuldu! Lütfen e-posta adresinizi onaylamak için gelen kutunuzu kontrol edin."
 }
 

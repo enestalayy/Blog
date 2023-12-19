@@ -2,7 +2,6 @@
     <div>
         <ProfileAccount />
         <HomePostCard class="rounded-none" :posts="getUsersPosts" />
-        <PostCreatePost />
         <h1 v-if="!getUsersPosts.length > 0">{{ $t('noPost') }}</h1>
 
     </div>

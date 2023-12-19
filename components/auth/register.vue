@@ -30,11 +30,11 @@
                     </li>
             </ul>
             <span class="p-float-label w-fit z-10">
-                <PrimeInputMask required v-model="phone" mask="(+99) 999-999-9999" />
+                <PrimeInputMask v-model="phone" mask="(+99) 999-999-9999" />
                 <label class="absolute left-2"  for="phone">{{ $t('phone') }}</label>
             </span>
-            <PrimeToast class="rounded w-fit bg-yellow-500" />
-            <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid || userExists" class="z-10 bg-[#41B883] rounded p-1">
+            <PrimeToast class="rounded w-fit bg-[var(--light-text)]" />
+            <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid" class="z-10 bg-[#41B883] rounded p-1">
                 {{ $t('signUp') }}
             </button>
         </form>
@@ -45,8 +45,10 @@
             return {
                 supabase: useSupabaseClient(),
                 i18n: useI18n(),
+                sessionStore: useSessionStore(),
                 localeStore: useLocaleStore(),
                 inputCheck: useInputCheck(),
+                toast: useToast(),
                 name: '',
                 phone: '',
                 email: '',
@@ -105,18 +107,33 @@
                     },
                     }
                     });
-                    if (error) {
-                        console.error('Supabase hatası:', error.message);
-                    } else {
-                        console.log('Kullanıcı başarıyla eklendi:', data);
-                    }
+                    error && this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
+                    this.toast.add({ severity: 'info', summary: 'Info Message', detail: $t('signUpToast'), life: 0 })
                 } catch (error) {
-                    console.error('Bir hata oluştu:', error.message);
+                    this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
                 }
             },
         }
     }
 </script>
 <style>
+.p-toast {
+    top: 10vh !important;
+    right: 5vw !important;
+    color: beige;
+    width: 20vw;
+    min-width: 150px;
+}
+.p-toast-message-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 0 10px;
+}
 
+.p-toast-detail {
+    padding: 3px;
+    font-size: 14px;
+}
 </style>

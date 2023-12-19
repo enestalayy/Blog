@@ -39,7 +39,7 @@ export const useCommentStore = defineStore({
           console.error("Yazar verisi çekme hatası:", error.message);
           return null;
         }
-        return data.user.user_metadata;
+        return data.user;
       } catch (error) {
         console.error("Bir hata oluştu:", error.message);
         return null;

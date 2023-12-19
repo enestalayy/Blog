@@ -1,7 +1,19 @@
 <template>
-    <div>
-        <PrimeButton :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" @click="updateLikes" class="pi">{{ postLike() }}</PrimeButton>
+    <div class="text-center" >
+        <PrimeButton :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" @click="updateLikes" class="pi flex flex-row items-center"><p class="inline">{{ postLike() }}</p></PrimeButton>
     </div>
+    <div v-show="showDialog" class="backgroundBlur">
+                <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
+                    <template #header>
+                        <h3 class=" w-2/3 mx-auto">
+                            You need to sign in to like the posts
+                        </h3>
+                    </template>
+                    <div class="w-full text-center my-2 p-1 rounded">
+                        <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
+                    </div>
+                </PrimeDialog>
+            </div>
 </template>
 
 <script>
@@ -13,7 +25,8 @@
                 supabase: useSupabaseClient(),
                 postStore: usePostStore(),
                 likeStore: useLikesStore(),
-                user: useSupabaseUser()
+                user: useSupabaseUser(),
+                showDialog: false
             }
         },
         computed: {
@@ -37,20 +50,21 @@
         methods: {
             async updateLikes() {
                 const isLiked = this.isLiked
-                console.log(isLiked)
-                try {
-                    if (!isLiked) {
-                        await this.likeStore.likePost(this.post, this.currentUser);
-                    } else {
-                        await this.likeStore.unlikePost(this.post, this.currentUser)
+                if(this.sessionStore.session) {
+                    try {
+                        if (!isLiked) {
+                            await this.likeStore.likePost(this.post, this.currentUser);
+                        } else {
+                            await this.likeStore.unlikePost(this.post, this.currentUser)
+                        }
+                    } catch (error) {
+                        console.error("Like error:", error);
                     }
-                } catch (error) {
-                    console.error("Like error:", error);
-                }
+                }else this.showDialog = true
             },
             postLike() {
                 const postLike = this.getLikes.filter((e) => e.post_id === this.post.id)
-                return postLike.length
+                return postLike.length === 0 ? '' : postLike.length + 'like'
             },
             
         },
@@ -58,7 +72,3 @@
 
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -9,8 +9,7 @@ export const useSessionStore = defineStore({
       const supabase = useSupabaseClient();
       const { data, error } = await supabase.auth.getSession();
       error && console.error(error);
-      console.log(data);
-      this.session = data.session.user;
+      data.session && (this.session = data.session.user);
     },
     handleDate(date) {
       const dateObject = new Date(date);
@@ -39,8 +38,71 @@ export const useSessionStore = defineStore({
           console.log("Updated user data:", data);
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
+    },
+    async signOut() {
+      console.log("signOut çalıştı");
+      try {
+        const supabase = useSupabaseClient();
+        const { error } = await supabase.auth.signOut();
+        if (error) { 
+          throw error
+        }else this.navigateToHome();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+      }
+    },
+    async deleteUser(id) {
+      try {
+        const supabase = useSupabaseClient();
+        const { data, error } = await supabase.auth.admin.deleteUser(id);
+        error && console.error(error);
+        if (data) {
+          this.deleteUserData(id);
+          this.navigateToHome();
+        }
+      } catch (error) {
+        console.error("Bir hata oluştu:", error);
+        throw error;
+      }
+    },
+    async deleteUserData(userId) {
+      const supabase = useSupabaseClient();
+      try {
+        const deleteCommentsPromise = supabase
+          .from("comments")
+          .delete()
+          .eq("user_id", userId);
+        const deleteLikesPromise = supabase
+          .from("likes")
+          .delete()
+          .eq("user_id", userId);
+        const deletePostsPromise = supabase
+          .from("posts")
+          .delete()
+          .eq("author_id", userId);
+
+        const [commentsData, likesData, postsData] = await Promise.all([
+          deleteCommentsPromise,
+          deleteLikesPromise,
+          deletePostsPromise,
+        ]);
+
+        console.log("Yorumlar başarıyla silindi:", commentsData);
+        console.log("Beğeniler başarıyla silindi:", likesData);
+        console.log("Postlar başarıyla silindi:", postsData);
+      } catch (error) {
+        console.error("Bir hata oluştu:", error);
+        throw error;
+      }
+    },
+    navigateToHome() {
+      const router = useRouter();
+      router.name === "index___tr" || "index___en"
+      ? window.location.reload()
+      : router.push("/");
     },
   },
 });

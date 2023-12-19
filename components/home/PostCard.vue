@@ -1,29 +1,87 @@
 <template>
     <div>
-        <PrimeCard v-for="(post, index) in posts" :key="index" class="w-full border-2 rounded-xl p-2 my-">
-            <template #header>
-                <h1>{{post.user.full_name}}</h1>
-            </template>
-            <template #title> {{ post.title }} </template>
-            <template #subtitle> {{post.tags}} </template>
-            <template #content>
-                <div v-html="post.content" class="m-0 text-start line-clamp-3">
+        <PrimeFieldset v-for="(post, index) in latestPosts" :key="index" class="w-full border-2 text-start rounded-xl p-2 relative">
+            <template #legend>
+                <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
+                    <PostUserCard :userInfo="post.user" :avatarContainer="'avatar-container-md'"  />
                 </div>
             </template>
-            <template  #footer>
-                <div class="w-3/4 mx-auto flex items-center justify-between">
-                    <PostLikeButton :post="post"/>
-                    {{ post.id }}
-                    <NuxtLink :to="`/${post.id}`" class="flex items-center border ">View Post<i class="pi pi-caret-right"></i></NuxtLink>
-                    <PrimeButton @click="" icon="pi pi-comment" :label="`${post.comments > 0 ? post.comments.length : ''}`" />
-                </div>
-            </template>
-        </PrimeCard>
+            <div class="flex flex-row justify-between ">
+                <h3>{{ post.title }}</h3>
+                <p class="text-xs whitespace-nowrap">{{ this.postStore.handlePostDate(post.created_at) }}</p>
+            </div>
+            <h3 class="text-sm">#{{ post.tags }}</h3>
+            <div v-html="post.content" class="m-0 text-xs line-clamp-3"></div>
+            <div class="flex items-center justify-around pt-1">
+                <PostLikeButton :post="post" />
+                <button @click="sessionToPost(post.id)" class="pi pi-comment">{{ post.comments && post.comments.length + 'comment' }}</button>
+                <button @click="sessionToPost(post.id)"><PrimeButton class="border rounded p-1" >View Post <i class="pi pi-arrow-right text-xs pl-1"></i></PrimeButton></button>
+            </div>
+            <PrimeToast />
+            <PostEditPost v-show="this.user &&(post.author_id === this.user.id)" :post="post" />
+            <div v-show="showDialog" class="backgroundBlur">
+                <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
+                    <template #header>
+                        <h3 class=" w-2/3 mx-auto">
+                            You need to sign in to see the posts or comments
+                        </h3>
+                    </template>
+                    <div class="w-full text-center my-2 p-1 rounded">
+                        <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
+                    </div>
+                </PrimeDialog>
+            </div>
+        </PrimeFieldset>
     </div>
 </template>
 <script>
 export default {
     props: ['posts'],
+    data() {
+        return {
+            user: useSupabaseUser(),
+            postStore: usePostStore(),
+            sessionStore: useSessionStore(),
+            router: useRouter(),
+            showDialog: false
+        }
+    },
+    mounted() {
+        this.sessionStore.getSession()
+    },
+    computed: {
+        latestPosts() {
+            const sortedPosts = [...this.posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            return sortedPosts;
+        },
+        getSession() {
+            return this.sessionStore.session
+        }
+    },
+    methods: {
+        toggle(event) {
+            if (Array.isArray(this.$refs.menu)) {
+                this.$refs.menu.forEach(menuItem => {
+                    menuItem.toggle(event);
+                });
+            }
+        },
+        sessionToPost(postId) {
+            this.getSession
+            ? this.router.push(`post/${postId}`)
+            : this.showDialog = true   
+        }
+    }
 }
 </script>
-
+<style>
+.p-menu-list {
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+    gap: 8px;
+    color: beige;
+    border-radius: 5px;
+    background-color: var(--light-text);
+}
+</style>

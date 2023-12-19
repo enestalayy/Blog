@@ -28,6 +28,19 @@
         <PrimeSpeedDial :model="items" :radius="60" showIcon="pi pi-cog" type="quarter-circle" direction="down-left" :style="{ right: '8px', top: 0 }" />
         <h5 class="text-xs">Joined at {{ handleDate }}</h5>
     </div>
+    <div v-show="showDelete" class="backgroundBlur">
+      <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDelete" modal header="Header">
+          <template #header>
+              <h3 class=" w-2/3 mx-auto">
+                  Are you sure? Your account and all your activities will be deleted.
+              </h3>
+          </template>
+          <div class="w-full text-center my-2 p-1 rounded">
+            <button @click="showDelete = false">No</button>
+            <button class="bg-[var(--light-text)] p-2 rounded-md" @click="deleteAccount"><i class="pi pi-thrash"></i>Yes I am</button>
+          </div>
+      </PrimeDialog>
+  </div>
   </div>
 </template>
 
@@ -45,17 +58,18 @@
         newEmail: '',
         newPhone: '',
         toast: useToast(),
+        showDelete: false,
         items: [
           {
             label: 'Add',
-            icon: 'pi pi-pencil',
+            icon: 'pi pi-user-edit',
             command: () => { this.sessionStore.toggleEditAccount()  }
           },
           {
             label: 'Delete',
             icon: 'pi pi-trash',
             command: () => {
-                // toast.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+              this.showDelete = true
             }
           },
         ]
@@ -93,6 +107,9 @@
         } catch (error) {
           console.error(error)
         }
+      },
+      deleteAccount() {
+        this.sessionStore.deleteUser(this.user.id)
       }
     }
   }

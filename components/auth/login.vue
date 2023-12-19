@@ -5,7 +5,7 @@
             <label class="absolute left-2" for="email">{{ $t('email') }}</label>
         </span>
         <span class="p-float-label w-fit z-10">
-            <PrimePassword @input="checkPassword" v-model="password" class="relative" inputId="password" :feedback="false"/>
+            <PrimePassword @input="checkPassword" v-model="password" class="relative" inputId="password" toggle-mask :feedback="false"/>
             <label class="absolute left-2" for="password">{{ $t('password') }}</label>
         </span>
         <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid" class="z-10 rounded p-1 relative" @mouseover="showWarning = true" @mouseout="showWarning = false">
@@ -59,13 +59,9 @@
                         email: this.email,
                         password: this.password,
                     });
-                    if (error) {
-                        console.error('Giriş yapılırken hata:', error.message);
-                    } else {
-                        console.log('Giriş başarılı:', data);
-                        const user = data.user;
-                        console.log('Kullanıcı bilgileri:', user);
-                    }
+
+                    error && console.error('Giriş yapılırken hata:', error.message);
+                    data && this.$router.push('/');
                 } catch (error) {
                     console.error('Bir hata oluştu:', error.message);
                 }

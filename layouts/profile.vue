@@ -11,7 +11,7 @@
             <slot />
         </main>
         <aside class="w-1/5 rounded text-center">
-            <h1>Right side</h1>
+            <HomeRightAside />
         </aside>
         </div>
     </div>
