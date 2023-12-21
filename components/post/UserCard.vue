@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nuxt-link class="flex flex-row items-center gap-1 p-1 rounded-xl" :to="postOwner ? localePath({ name: 'profile' }) : localePath({ name: 'profile' }) + '/' + userInfo.id">
+        <nuxt-link class="flex flex-row items-center gap-1 p-1 rounded-xl" :to="postOwner ? localePath({ name: 'profile' }) : localePath(`/profile/${userInfo.id}`)">
             <ProfileAvatar :userInfo="user" :avatarContainer="avatarContainer" />
             <div class="flex flex-col items-start pl-1">
                 <span class="font-bold text-xs capitalize">{{ user.full_name }}</span>

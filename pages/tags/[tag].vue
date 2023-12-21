@@ -9,6 +9,7 @@
         layout: 'default'
     })
     const { tag } = useRoute().params
+    const { t } = useI18n()
     const postStore = usePostStore()
     onMounted(() => {
         postStore.getPosts();

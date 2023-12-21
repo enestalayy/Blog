@@ -11,16 +11,14 @@
                 <h3 class="text-sm line-clamp-1 capitalize">{{ post.title }}</h3>
                 <p class="text-xs">{{ this.postStore.handlePostDate(post.updated_at) }}</p>
             </div>
-            <h3 class="text-xs pl-2">#{{ post.tags }}</h3>
+            <nuxt-link :to="localePath(`/tags/${post.tags}`)" class="text-xs pl-2">#{{ post.tags }}</nuxt-link>
             <div v-html="post.content" class="m-0 text-xs break-all line-clamp-3"></div>
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
                 <h3 v-show="getComment(post.id)">{{ getComment(post.id) + 'comment' }}</h3>
-                <button @click="sessionToPost(post.id)">
-                    <PrimeButton class="border rounded p-1 text-sm" >
-                        View Post <i class="pi pi-arrow-right text-xs pl-1"></i>
-                    </PrimeButton>
-                </button>
+                <PrimeButton @click="sessionToPost(post.id)" class="border rounded p-1 text-sm" >
+                    View Post <i class="pi pi-arrow-right text-xs pl-1"></i>
+                </PrimeButton>
             </div>
             <PostEditPost :post="post" v-show="user && (user.id === post.author_id)" />
         </PrimeFieldset>
@@ -33,6 +31,7 @@
     data() {
         return {
             user: useSupabaseUser(),
+            router: useRouter(),
             postStore: usePostStore(),
             sessionStore: useSessionStore(),
             commentStore: useCommentStore(),
@@ -51,7 +50,7 @@
             return this.likeStore.mostLikedPosts()
         },
         getSession(){
-            this.sessionStore.getSession()
+            return this.sessionStore.getSession()
         }
     },
     methods: {
@@ -60,7 +59,7 @@
         },
         sessionToPost(postId) {
             this.getSession
-            ? this.router.push(`post/${postId}`)
+            ? this.router.push(this.localePath(`/post/${postId}`))
             : this.showDialog = true   
         },
     }

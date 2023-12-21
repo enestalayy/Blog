@@ -45,11 +45,11 @@ export const useSessionStore = defineStore({
       try {
         const supabase = useSupabaseClient();
         const { error } = await supabase.auth.signOut();
-        if (error) { 
-          throw error
-        }else this.navigateToHome();
+        error && console.error(error)
       } catch (error) {
         alert(error.message);
+      } finally {
+        this.navigateToHome();
       }
     },
     async deleteUser(id) {
@@ -128,9 +128,9 @@ export const useSessionStore = defineStore({
     navigateToHome() {
       const route = useRoute();
       const router = useRouter();
-      route.name === "index___tr" || "index___en" || "/"
+      route.name === "index___tr" || route.name === "index___en"
         ? window.location.reload()
-        : router.push("/");
+        : router.push(localePath({ name: "index" }));
     },
   },
 });

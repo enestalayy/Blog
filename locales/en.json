@@ -1,6 +1,7 @@
 {
-    "auth": "Auth",
-    "profile": "Profile",
+    "auth": "auth",
+    "profile": "profile",
+    "post": "post",
     "dark": "Dark",
     "light": "Light",
     "home": "Home",
@@ -24,5 +25,28 @@
     "incorrectError": "E-mail or password incorrect",
     "loginWith": "Log In with Other Options",
     "noPost": "There is no post shared yet.",
-    "signUpToast": "Account created successfully! Please check your inbox to confirm your email address."
+    "signUpToast": "Account created successfully! Please check your inbox to confirm your email address.",
+    "tags": {
+        "Technology Trends": "Technology Trends",
+        "Space Exploration": "Space Exploration",
+        "Continuous Learning": "Continuous Learning",
+        "Engineering Marvels": "Engineering Marvels",
+        "Digital Transformation": "Digital Transformation",
+        "Future of Work": "Future of Work",
+        "Environmental Sustainability": "Environmental Sustainability",
+        "Health and Wellness Tech": "Health and Wellness Tech",
+        "Inspirational Stories": "Inspirational Stories",
+        "Travel Adventures": "Travel Adventures",
+        "Culinary Delights": "Culinary Delights",
+        "Art and Creativity": "Art and Creativity",
+        "Book Reviews": "Book Reviews",
+        "Mindfulness and Meditation": "Mindfulness and Meditation",
+        "Global Perspectives": "Global Perspectives",
+        "Entrepreneurship Insights": "Entrepreneurship Insights",
+        "Science and Nature Wonders": "Science and Nature Wonders",
+        "Parenting Journeys": "Parenting Journeys",
+        "Fashion Trends": "Fashion Trends",
+        "Gaming and Entertainment": "Gaming and Entertainment",
+        "Other": "Other"
+    }
 }

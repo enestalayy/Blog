@@ -1,6 +1,7 @@
 {
   "auth": "giris",
-  "profile": "Profil",
+  "profile": "profil",
+  "post": "gonderi",
   "dark": "Koyu",
   "light": "Hakkında",
   "home": "Ana Sayfa",
@@ -24,6 +25,29 @@
   "incorrectError": "E-posta veya şifre yanlış",
   "loginWith": "Diğer Seçeneklerle Giriş Yap",
   "noPost": "Henüz paylaşılan post yok.",
-  "signUpToast": "Hesabınız başarıyla oluşturuldu! Lütfen e-posta adresinizi onaylamak için gelen kutunuzu kontrol edin."
+  "signUpToast": "Hesabınız başarıyla oluşturuldu! Lütfen e-posta adresinizi onaylamak için gelen kutunuzu kontrol edin.",
+  "tags": {
+        "Technology Trends": "Teknoloji Trendleri",
+        "Space Exploration": "Uzay Keşifleri",
+        "Continuous Learning": "Devamlı Öğrenme",
+        "Engineering Marvels": "Mühendislik Harikaları",
+        "Digital Transformation": "Dijital Dönüşüm",
+        "Future of Work": "İşin Geleceği",
+        "Environmental Sustainability": "Çevresel Sürdürülebilirlik",
+        "Health and Wellness Tech": "Sağlık ve Wellness Teknolojisi",
+        "Inspirational Stories": "İlham Verici Hikayeler",
+        "Travel Adventures": "Seyahat Maceraları",
+        "Culinary Delights": "Mutfak Zevkleri",
+        "Art and Creativity": "Sanat ve Yaratıcılık",
+        "Book Reviews": "Kitap İncelemeleri",
+        "Mindfulness and Meditation": "Farkındalık ve Meditasyon",
+        "Global Perspectives": "Küresel Perspektifler",
+        "Entrepreneurship Insights": "Girişimcilik İçgörüleri",
+        "Science and Nature Wonders": "Bilim ve Doğa Harikaları",
+        "Parenting Journeys": "Ebeveynlik Hikayeleri",
+        "Fashion Trends": "Moda Trendleri",
+        "Gaming and Entertainment": "Oyun ve Eğlence",
+        "Other": "Diğer"
+    }
 }
 

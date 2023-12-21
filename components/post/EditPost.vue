@@ -8,7 +8,7 @@
                 <PostUserCard class="pl-2 p-1" :userInfo="postAuthor" :avatarContainer="'avatar-container-sm'" />
                 <PrimeInputText v-model="title" required class="p-1" placeholder="Type a Title*" />
                 <div class="p-float-label w-40 relative">
-                    <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="Tags" optionLabel="name" class="w-full p-1 text-[beige] rounded bg-[var(--dark-green)] " />
+                    <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="translatedTags" optionLabel="name" class="w-full p-1 text-[beige] rounded bg-[var(--dark-green)] " />
                     <label class="absolute text-[beige] left-0" for="dd-tag">Select a Tag*</label>
                 </div>
             </template>
@@ -47,6 +47,7 @@
 import Editor from 'primevue/editor';
 const props = defineProps(['post'])
 const supabase = useSupabaseClient()
+const { t } = useI18n()
 const user = useSupabaseUser()
 const postStore = usePostStore()
 const sessionStore = useSessionStore()
@@ -74,11 +75,12 @@ const Tags = ref([
     { name: 'Parenting Journeys' },
     { name: 'Fashion Trends' },
     { name: 'Gaming and Entertainment' },
-    { name: 'Other..' },
+    { name: 'Other' },
 ]);
 const content = ref(props.post && props.post.content)
 const title = ref(props.post && props.post.title)
-const selectedTag = ref(props.post && Tags.value.find((e) => e.name === props.post.tags))
+const translatedTags = computed(() => Tags.value.map(tag => ({ name: t(`tags.${tag.name}`) })));
+const selectedTag = ref(props.post && Tags.value.find((e) => t(`tags.${e.name}`) === props.post.tags))
 const sharePost = async () => { 
     try {
     const { error } = await supabase

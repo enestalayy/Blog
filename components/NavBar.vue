@@ -5,6 +5,8 @@
                     <img src=".././assets/images/2023-12-10-removebg-preview.png" class="h-8" alt="image">
                 </nuxt-link>
                 <PostEditPost class=" border-2 border-[beige] rounded" :post="''" />
+                <button @click="sessionStore.navigateToHome()">zort</button>
+                {{ darkMode }}
                 <div>
                     <ProfileAvatar v-if="getUser"  @click="showMenu = !showMenu"  class="cursor-pointer relative" :userInfo="getUser.user_metadata" :avatarContainer="'avatar-container-md'" />
                     <nuxt-link v-else :to="localePath({ name: 'auth' })"> Sign in</nuxt-link>
@@ -46,6 +48,7 @@
                 user: useSupabaseUser(),
                 supabase: useSupabaseClient(),
                 showMenu: false,
+                route: useRoute(),
             }
         },
         computed: {

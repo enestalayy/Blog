@@ -18,21 +18,11 @@
 </template>
 <script setup>
     const localeStore = useLocaleStore()
-    localeStore.initializeDarkModeFromCookie();
-    const isDarkMode = computed(() => localeStore.$state.isDarkMode)
-    const isAsideTop = ref(false);
-
-    const handleScroll = () => {
-        isAsideTop.value = window.scrollY > 0;
-    };
-
     onMounted(() => {
-        window.addEventListener('scroll', handleScroll);
-    });
+        localeStore.initializeDarkModeFromCookie();
+    })
+    const isDarkMode = computed(() => localeStore.$state.isDarkMode)
 
-    onBeforeUnmount(() => {
-        window.removeEventListener('scroll', handleScroll);
-    });
 </script>
 <style>
 

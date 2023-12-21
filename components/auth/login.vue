@@ -10,7 +10,7 @@
         </span>
         <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid" class="z-10 rounded p-1 relative" @mouseover="showWarning = true" @mouseout="showWarning = false">
             {{ $t('logIn') }}
-            <PrimeInlineMessage v-if="showWarning && formValid && this.email && this.password" class="text-sm whitespace-nowrap w-fit flex items-center" severity="warning">
+            <PrimeInlineMessage v-if="showWarning && !formValid && this.email && this.password" class="text-sm whitespace-nowrap w-fit flex items-center" severity="warning">
                 <span class="pl-1">{{ $t('incorrectError') }}</span>
             </PrimeInlineMessage>
         </button>

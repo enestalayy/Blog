@@ -2,7 +2,8 @@
     definePageMeta({
         layout: 'profile'
     })
-    const { postId } = useRoute().params
+    const route = useRoute()
+    const { postId } = route.params
     const postStore = usePostStore()
     const commentStore = useCommentStore()
     const showComment = ref(false)

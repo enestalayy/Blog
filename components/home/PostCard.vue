@@ -10,7 +10,7 @@
                 <h3 class="capitalize">{{ post.title }}</h3>
                 <p class="text-xs whitespace-nowrap">{{ this.postStore.handlePostDate(post.created_at) }}</p>
             </div>
-            <h3 class="text-sm">#{{ post.tags }}</h3>
+            <nuxt-link :to="localePath(`/tags/${post.tags}`)" class="text-sm">#{{ post.tags }}</nuxt-link>
             <div v-html="post.content" class="m-0 text-xs break-all line-clamp-3"></div>
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
@@ -80,7 +80,7 @@ export default {
         },
         sessionToPost(postId) {
             this.getSession
-            ? this.router.push(`post/${postId}`)
+            ? this.$router.push(this.localePath(`/post/${postId}`))
             : this.showDialog = true   
         },
         loadMorePosts() {

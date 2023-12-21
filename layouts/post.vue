@@ -18,7 +18,9 @@
 </template>
 <script setup>
     const localeStore = useLocaleStore()
+    onMounted(() => {
         localeStore.initializeDarkModeFromCookie();
+    })
     const isDarkMode = computed(() => localeStore.$state.isDarkMode)
 </script>
 <style>

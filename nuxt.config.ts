@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     dirs: ["stores"],
   },
   i18n: {
-    // baseUrl: process.env.NUXT_PUBLIC_I18N_BASE_URL,
+    // baseUrl: "https://xblog-blog.vercel.app/",
     lazy: true,
     langDir: "locales",
     strategy: "prefix_except_default",
@@ -59,6 +59,18 @@ export default defineNuxtConfig({
     pages: {
       "auth/index": {
         tr: "/giris",
+      },
+      "post/[postId]": {
+        tr: "/gonderi/[postId]",
+      },
+      "profile/index": {
+        tr: "/profil",
+      },
+      "profile/[userId]": {
+        tr: "/profil/[userId]",
+      },
+      "tags/[tag]": {
+        tr: "/etiketler/[tag]",
       },
     },
   },
