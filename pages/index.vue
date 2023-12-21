@@ -9,6 +9,7 @@ const getPosts = computed(() => postStore.posts);
 <template>
     <div>
         <HomePostCard :posts="getPosts" />
+        
     </div>
 </template>
 

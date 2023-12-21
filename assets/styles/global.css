@@ -4,6 +4,12 @@
 * {
     scrollbar-width: none;
 }
+*, ::before, ::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--light-text);
+}
 body {
     max-width: 100vw;
     overflow-x: hidden;
@@ -56,7 +62,15 @@ input {
     border-color: blue;
     outline: none;
 }
-
+.pi-heart, .pi-heart-fill {
+    color: #41B883;
+}
+.pi-comment, .pi-comment-fill {
+    color: #41B883;
+}
+.p-fieldset-legend {
+    border-radius: 5px;
+}
 svg.p-icon {
     top: 10px;
     right: -22px;
@@ -99,11 +113,12 @@ svg.p-icon {
 
 
 
-/* .dark-mode {
-    background-color: rgb(5, 5, 33);
-    color: azure;
+.dark-mode {
+    background-color: var(--dark-bg-darkblue);
+    color: var(--dark-text);
+    border-color: var(--light-text) !important;
 }
-.light-mode{
+/* .light-mode{
     background-color: beige ;
     color: #41B883;
 } */

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-5">
-        <h1>Most Liked Posts</h1>
+        <h1 class="text-xl border-2 rounded">Most Liked Posts</h1>
         <PrimeFieldset v-if="mostLikedPosts" v-for="(post, index) in mostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative">
             <template #legend>
                 <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
@@ -8,7 +8,7 @@
                 </div>
             </template>
             <div class="flex flex-row items-center px-1 justify-between">
-                <h3 class="text-sm line-clamp-1 ">{{ post.title }}</h3>
+                <h3 class="text-sm line-clamp-1 capitalize">{{ post.title }}</h3>
                 <p class="text-xs">{{ this.postStore.handlePostDate(post.updated_at) }}</p>
             </div>
             <h3 class="text-xs pl-2">#{{ post.tags }}</h3>
@@ -16,6 +16,11 @@
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
                 <h3 v-show="getComment(post.id)">{{ getComment(post.id) + 'comment' }}</h3>
+                <button @click="sessionToPost(post.id)">
+                    <PrimeButton class="border rounded p-1 text-sm" >
+                        View Post <i class="pi pi-arrow-right text-xs pl-1"></i>
+                    </PrimeButton>
+                </button>
             </div>
             <PostEditPost :post="post" v-show="user && (user.id === post.author_id)" />
         </PrimeFieldset>
@@ -29,6 +34,7 @@
         return {
             user: useSupabaseUser(),
             postStore: usePostStore(),
+            sessionStore: useSessionStore(),
             commentStore: useCommentStore(),
             likeStore: useLikesStore(),
             postLikes: {}
@@ -43,11 +49,19 @@
         },
         mostLikedPosts() {
             return this.likeStore.mostLikedPosts()
+        },
+        getSession(){
+            this.sessionStore.getSession()
         }
     },
     methods: {
         getComment(id) {
             return this.commentStore.getCurrentComments(id) && this.commentStore.getCurrentComments(id).length
+        },
+        sessionToPost(postId) {
+            this.getSession
+            ? this.router.push(`post/${postId}`)
+            : this.showDialog = true   
         },
     }
 }

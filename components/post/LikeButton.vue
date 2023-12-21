@@ -1,6 +1,9 @@
 <template>
     <div class="text-center" >
-        <PrimeButton :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" @click="updateLikes" class="pi flex flex-row items-center"><p class="inline">{{ postLike() }}</p></PrimeButton>
+        <PrimeButton @click="updateLikes" class="flex flex-row items-center">
+            <i :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" class="pi"></i>
+            <p class="inline">{{ postLike() }}</p>
+        </PrimeButton>
     </div>
     <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3 z-50" v-model:visible="showDialog" modal header="Header">
             <template #header>

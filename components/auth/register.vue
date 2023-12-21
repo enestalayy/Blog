@@ -25,9 +25,9 @@
                 </span>
             </span>
             <ul id="errorPassword" v-if="showPasswordError" :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" class="mt-0 whitespace-nowrap w-fit absolute z-20 mx-0 top-36 rounded">
-                    <li v-if="passwordError" v-for="(error, index) in passwordError" class="text-sm" :key="index">
-                        <span class="p-2">{{i18n.t(`${error}`)}}</span>
-                    </li>
+                <li v-if="passwordError" v-for="(error, index) in passwordError" class="text-sm" :key="index">
+                    <span class="p-2">{{i18n.t(`${error}`)}}</span>
+                </li>
             </ul>
             <span class="p-float-label w-fit z-10">
                 <PrimeInputMask v-model="phone" mask="(+99) 999-999-9999" />
@@ -108,7 +108,7 @@
                     }
                     });
                     error && this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
-                    this.toast.add({ severity: 'info', summary: 'Info Message', detail: $t('signUpToast'), life: 0 })
+                    this.toast.add({ severity: 'info', summary: 'Info Message', detail: this.i18n.t(`${signUpToast}`), life: 0 })
                 } catch (error) {
                     this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
                 }

@@ -16,7 +16,6 @@
         },
         computed: {
             userInfo() {
-                console.log(this.user.user_metadata.avatar)
                 return this.user
             },
             editAccount() {

@@ -5,23 +5,30 @@ export const useLikesStore = defineStore({
   }),
   actions: {
     async getLikes() {
-      const supabase = useSupabaseClient();
-      const { data, error } = await supabase.from("likes").select();
-      error && console.error(error);
-      this.likes = data;
+      try {
+        const supabase = useSupabaseClient();
+        const { data, error } = await supabase.from("likes").select();
+        error && console.error(error);
+        this.likes = data;
+      } catch (error) {
+        console.error(error)
+      }
     },
     async likePost(post, currentUser) {
-      console.log(post.id);
-      console.log(currentUser.id);
-      const supabase = useSupabaseClient();
-      const { data, error } = await supabase
-        .from("likes")
-        .insert({ post_id: post.id, user_id: currentUser.id })
-        .select();
-      if (error) {
-        console.error(error);
-      } else {
-        this.likes = [...this.likes, data[0]];
+      try {
+        const supabase = useSupabaseClient();
+        const { data, error } = await supabase
+          .from("likes")
+          .insert({ post_id: post.id, user_id: currentUser.id })
+          .select();
+        if (error) {
+          console.error(error);
+        } else {
+          this.likes = [...this.likes, data[0]];
+        }
+      } catch (error) {
+        console.error(error)
+        throw error
       }
     },
     async unlikePost(post, currentUser) {
@@ -44,9 +51,8 @@ export const useLikesStore = defineStore({
       const postStore = usePostStore()
       const posts = postStore.posts
       const postLike = {};
-      this.likes.forEach((like) => {
-        like.post_id &&
-          (postLike[like.post_id] = (postLike[like.post_id] || 0) + 1);
+      this.likes && this.likes.forEach((like) => {
+          postLike[like.post_id] = (postLike[like.post_id] || 0) + 1;
       });
       const top5PostIds = Object.entries(postLike)
         .sort(([, aCount], [, bCount]) => bCount - aCount)

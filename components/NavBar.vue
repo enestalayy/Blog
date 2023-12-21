@@ -4,8 +4,8 @@
                 <nuxt-link :to="localePath({ name: 'index' })">
                     <img src=".././assets/images/2023-12-10-removebg-preview.png" class="h-8" alt="image">
                 </nuxt-link>
-                <PostEditPost :post="''" />
-                <div class="">
+                <PostEditPost class=" border-2 border-[beige] rounded" :post="''" />
+                <div>
                     <ProfileAvatar v-if="getUser"  @click="showMenu = !showMenu"  class="cursor-pointer relative" :userInfo="getUser.user_metadata" :avatarContainer="'avatar-container-md'" />
                     <nuxt-link v-else :to="localePath({ name: 'auth' })"> Sign in</nuxt-link>
                     <ul :class="{ 'menu-show': showMenu }" class="flex flex-row items-center bg-[var(--light-text)] pr-2 py-2 menu-transition">

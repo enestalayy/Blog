@@ -15,25 +15,25 @@
     })
     const comments = computed(() => commentStore.getCurrentComments(postId))
 </script>
-
 <template>
     <div>
-        <PrimeCard v-if="post" class="w-full border-2 border-[lime] rounded-xl p-2 my-">
-            <template #header>
-                <h1>{{post.user.full_name}}</h1>
+        <PrimeFieldset v-if="post" class="w-full border-2 text-start rounded-xl p-2 my-3 relative">
+            <template #legend>
+                <div class="flex items-center gap-2 border-2 rounded-md px-2">
+                    <PostUserCard :userInfo="post.user" :avatarContainer="'avatar-container-md'" />
+                </div>
             </template>
-            <template #title> {{ post.title }} </template>
-            <template #subtitle> {{post.tags}} </template>
-            <template #content>
-                <div class="text-start" v-html="post.content"></div>
-            </template>
-            <template  #footer>
-                <div class="w-3/4 mx-auto flex items-center justify-between">
+            <div class="flex flex-col gap-2">
+                <h3 class="capitalize text-lg"> {{ post.title }} </h3>
+                <h3 class="text-md"> {{post.tags}} </h3>
+                <div class="text-start text-sm break-all" v-html="post.content"></div>
+                <div class="w-3/4 mx-auto flex items-center justify-between my-1">
                     <PostLikeButton :post="post"/>
                     <PrimeButton @click="toggleComment()" icon="pi pi-comment" :label="`${comments.length > 0 ? comments.length : ''}`" />
                 </div>
-            </template>
-        </PrimeCard>
+            </div>
+        </PrimeFieldset>
+        <h3 v-show="!comments.length">No comments yet</h3>
         <PostCommentCards :showComment="showComment" :postId="postId" />
     </div>
 </template>

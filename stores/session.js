@@ -50,7 +50,6 @@ export const useSessionStore = defineStore({
         }else this.navigateToHome();
       } catch (error) {
         alert(error.message);
-      } finally {
       }
     },
     async deleteUser(id) {
@@ -59,8 +58,9 @@ export const useSessionStore = defineStore({
         const { data, error } = await supabase.auth.admin.deleteUser(id);
         error && console.error(error);
         if (data) {
+          this.signOut();
           this.deleteUserData(id);
-          this.signOut()
+          this.deleteUsersPostData(id);
           this.navigateToHome();
         }
       } catch (error) {
@@ -68,41 +68,69 @@ export const useSessionStore = defineStore({
         throw error;
       }
     },
+    async deleteUsersPostData(userId) {
+      const supabase = useSupabaseClient()
+      try {
+        const { data, error } = await supabase
+          .from("posts")
+          .select("id")
+          .eq("author_id", userId);
+          if(data) {
+            const postId = data[0].id
+            try {
+              const deleteCommentsPromise = supabase
+                .from("comments")
+                .delete()
+                .eq("post_id", postId);
+              const deleteLikesPromise = supabase
+                .from("likes")
+                .delete()
+                .eq("post_id", postId);
+                const [commentsData, likesData, ] = await Promise.all([
+                  deleteCommentsPromise,
+                  deleteLikesPromise,
+                ]);
+            } catch (error) {
+              throw error
+            }
+          }
+        error && console.error(error);
+      } catch (error) {
+        throw error
+      }
+    },
     async deleteUserData(userId) {
       const supabase = useSupabaseClient();
       try {
-        const deleteCommentsPromise = supabase
-          .from("comments")
-          .delete()
-          .eq("user_id", userId);
-        const deleteLikesPromise = supabase
-          .from("likes")
-          .delete()
-          .eq("user_id", userId);
-        const deletePostsPromise = supabase
-          .from("posts")
-          .delete()
-          .eq("author_id", userId);
+          const deleteCommentsPromise = supabase
+            .from("comments")
+            .delete()
+            .eq("user_id", userId)
+          const deleteLikesPromise = supabase
+            .from("likes")
+            .delete()
+            .eq("user_id", userId)
+          const deletePostsPromise = supabase
+            .from("posts")
+            .delete()
+            .eq("author_id", userId);
 
-        const [commentsData, likesData, postsData] = await Promise.all([
-          deleteCommentsPromise,
-          deleteLikesPromise,
-          deletePostsPromise,
-        ]);
-
-        console.log("Yorumlar başarıyla silindi:", commentsData);
-        console.log("Beğeniler başarıyla silindi:", likesData);
-        console.log("Postlar başarıyla silindi:", postsData);
+          const [commentsData, likesData, postsData] = await Promise.all([
+            deleteCommentsPromise,
+            deleteLikesPromise,
+            deletePostsPromise,
+          ]);
       } catch (error) {
         console.error("Bir hata oluştu:", error);
         throw error;
       }
     },
     navigateToHome() {
+      const route = useRoute();
       const router = useRouter();
-      router.name === "index___tr" || "index___en"
-      ? window.location.reload()
-      : router.push("/");
+      route.name === "index___tr" || "index___en" || "/"
+        ? window.location.reload()
+        : router.push("/");
     },
   },
 });
