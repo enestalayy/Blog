@@ -19,7 +19,7 @@
           <PrimeToast class="" />
         </div>
         <div class="flex flex-row items-center">
-          <PrimeInputMask v-if="editAccount" mask="(+99) 999-999-9999"  v-model="newPhone" type="text"  :placeholder="metaData.phone" />
+          <PrimeInputMask v-if="editAccount" mask="(+99) 999-999-9999"  v-model="newPhone" type="text"  :placeholder="metaData.phone ? metaData.phone : 'Add Phone Number'" />
           <h3 v-else v-if="metaData.phone">{{ metaData.phone }}</h3>
           <button v-if="editAccount" :disabled="!newPhone" @click="this.editMetaData(['phone', newPhone])" class="pi pi-pencil ml-2 p-1 border rounded-full"></button>
         </div>
@@ -36,8 +36,8 @@
               </h3>
           </template>
           <div class="w-full text-center my-2 p-1 rounded">
-            <button @click="showDelete = false">No</button>
-            <button class="bg-[var(--light-text)] p-2 rounded-md" @click="deleteAccount"><i class="pi pi-thrash"></i>Yes I am</button>
+            <button @click="showDelete = false" class="bg-[var(--light-text)] p-2 rounded-md mx-2 ">No</button>
+            <button class="bg-[var(--light-text)] p-2 rounded-md mx-2" @click="deleteAccount"><i class="pi pi-trash pr-1"></i>Yes I am</button>
           </div>
       </PrimeDialog>
   </div>

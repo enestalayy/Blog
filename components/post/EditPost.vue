@@ -1,6 +1,6 @@
 <template>
     <div  class="card flex justify-content-center ">
-        <PrimeButton v-if="!props.post" icon="pi pi-plus" class="border-2 rounded w-7 h-7 createPostBtn" @click="visible = true" />
+        <PrimeButton v-if="!props.post" icon="pi pi-plus" class="border-2 rounded w-7 h-7 createPostBtn" @click="createPost" />
         <PrimeButton v-else  type="button" icon="pi pi-ellipsis-v" @click="toggle" class="text-xs absolute right-0 top-[-15px]" aria-haspopup="true" aria-controls="overlay_menu" />
         <PrimeMenu ref="menuRef" id="overlay_menu" :model="items" :popup="true" />
         <PrimeDialog v-model:visible="visible" modal header="Header" class="bg-[beige] rounded-xl dialog" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
@@ -29,7 +29,17 @@
                 <PrimeButton v-else @click="sharePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Share Post" autofocus />
             </template>
         </PrimeDialog>
-        <div v-show="visible" class="backgroundBlur"></div>
+        <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3 z-50" v-model:visible="showDialog" modal header="Header">
+            <template #header>
+                <h3 class=" w-2/3 mx-auto">
+                    You need to sign in to create a post
+                </h3>
+            </template>
+            <div class="w-full text-center my-2 p-1 rounded">
+                <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
+            </div>
+        </PrimeDialog>
+        <div v-show="visible || showDialog" class="backgroundBlur"></div>
     </div>
 </template>
 
@@ -42,7 +52,7 @@ const postStore = usePostStore()
 const sessionStore = useSessionStore()
 const postAuthor = user.value ? user.value : null;
 const visible = ref(false);
-
+const showDialog = ref(false)
 const Tags = ref([
     { name: 'Technology Trends' },
     { name: 'Space Exploration' },
@@ -98,7 +108,11 @@ const updatePost = async () => {
         console.error(error)
     }
  }
-
+const createPost = () => {
+    if(sessionStore.session) {
+        visible.value = true
+    }else showDialog.value = true
+}
 const items = ref([
   {
     label: 'Edit Post',
@@ -141,7 +155,7 @@ const toggle = (event) => {
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  z-index: 10000;
+  z-index: 1000;
 }
 .dialog {
     box-shadow: 0 0 15px beige;

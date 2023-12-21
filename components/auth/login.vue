@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="handleLogin" class="flex flex-col items-center mt-5 gap-7">
+    <form v-if="!forgotPassword" @submit.prevent="handleLogin" class="flex flex-col items-center mt-5 gap-7">
         <span class="p-float-label w-fit z-10">
             <PrimeInputText @input="checkEmail" v-model="email" class="relative" id="email" />
             <label class="absolute left-2" for="email">{{ $t('email') }}</label>
@@ -14,12 +14,21 @@
                 <span class="pl-1">{{ $t('incorrectError') }}</span>
             </PrimeInlineMessage>
         </button>
-        <button class="z-10 text-sm forgotBtn">
+        <button @click="forgotPassword = true" class="z-10 text-sm forgotBtn">
             {{ $t('forgot') }}
         </button>
         <div>{{ $t('loginWith') }}</div>
         <button @click="handleGoogleLogin" class="z-10 text-sm forgotBtn">
             Google
+        </button>
+    </form>
+    <form @submit.prevent="passwordReset" v-else >
+        <span class="p-float-label w-fit z-10">
+            <PrimeInputText @input="checkEmail" v-model="forgotEmail" class="relative" id="forgotEmail" />
+            <label class="absolute left-2" for="forgotEmail">{{ $t('email') }}</label>
+        </span>
+        <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" class="z-10 rounded p-1 relative">
+            Send a reset email
         </button>
     </form>
 </template>
@@ -34,6 +43,8 @@
                 password: '',
                 formValid: false,
                 showWarning: false,
+                forgotPassword: false,
+                forgotEmail: ''
             };
         },
         computed: {
@@ -78,6 +89,16 @@
                     console.error('Bir hata oluştu:', error.message);
                 }
             },
+            async passwordReset() {
+                try {
+                    await this.supabase.auth.resetPasswordForEmail(this.forgotEmail, {
+                        redirectTo: 'http://localhost:3000/auth/forget',
+                    })
+                } catch (error) {
+                    console.error(error)
+                    throw error
+                }
+            }
         }
     }
 </script>

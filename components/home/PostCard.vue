@@ -19,8 +19,7 @@
             </div>
             <PrimeToast />
             <PostEditPost v-show="this.user &&(post.author_id === this.user.id)" :post="post" />
-            <div v-show="showDialog" class="backgroundBlur">
-                <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
+            <PrimeDialog v-if="showDialog" class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
                     <template #header>
                         <h3 class=" w-2/3 mx-auto">
                             You need to sign in to see the posts or comments
@@ -30,8 +29,10 @@
                         <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
                     </div>
                 </PrimeDialog>
+            <div v-show="showDialog" class="backgroundBlur">
             </div>
         </PrimeFieldset>
+        <button @click="loadMorePosts">Daha Fazla Göster</button>
     </div>
 </template>
 <script>
@@ -43,16 +44,18 @@ export default {
             postStore: usePostStore(),
             sessionStore: useSessionStore(),
             router: useRouter(),
-            showDialog: false
+            showDialog: false,
+            bottomReached: false
         }
     },
     mounted() {
-        this.sessionStore.getSession()
+        this.sessionStore.getSession();
     },
     computed: {
         latestPosts() {
             const sortedPosts = [...this.posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-            return sortedPosts;
+            const end = this.postStore.currentPage * this.postStore.postsPerPage;
+            return sortedPosts.slice(0, end);
         },
         getSession() {
             return this.sessionStore.session
@@ -70,6 +73,9 @@ export default {
             this.getSession
             ? this.router.push(`post/${postId}`)
             : this.showDialog = true   
+        },
+        loadMorePosts() {
+            this.postStore.setPage(this.postStore.currentPage + 1);
         }
     }
 }

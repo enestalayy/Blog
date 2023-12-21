@@ -42,7 +42,6 @@ export const useSessionStore = defineStore({
       }
     },
     async signOut() {
-      console.log("signOut çalıştı");
       try {
         const supabase = useSupabaseClient();
         const { error } = await supabase.auth.signOut();
@@ -61,6 +60,7 @@ export const useSessionStore = defineStore({
         error && console.error(error);
         if (data) {
           this.deleteUserData(id);
+          this.signOut()
           this.navigateToHome();
         }
       } catch (error) {

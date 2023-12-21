@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="flex flex-col gap-5">
         <h1>Most Liked Posts</h1>
-        <PrimeFieldset v-for="(post, index) in MostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative">
+        <PrimeFieldset v-if="mostLikedPosts" v-for="(post, index) in mostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative">
             <template #legend>
                 <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
                     <PostUserCard :userInfo="post.user" :avatarContainer="'avatar-container-sm'" />
@@ -14,7 +14,7 @@
             <h3 class="text-xs pl-2">#{{ post.tags }}</h3>
             <div v-html="post.content" class="m-0 text-xs break-all line-clamp-3"></div>
             <div class="flex items-center justify-around pt-1">
-                <h3 v-show="post.likes">{{ post.likes+'likes' }}</h3>
+                <PostLikeButton :post="post" />
                 <h3 v-show="getComment(post.id)">{{ getComment(post.id) + 'comment' }}</h3>
             </div>
             <PostEditPost :post="post" v-show="user && (user.id === post.author_id)" />
@@ -29,26 +29,26 @@
         return {
             user: useSupabaseUser(),
             postStore: usePostStore(),
-            commentStore: useCommentStore()
+            commentStore: useCommentStore(),
+            likeStore: useLikesStore(),
+            postLikes: {}
         };
     },
     computed: {
         posts() {
-            return this.postStore.$state.posts;
+            return this.postStore.posts;
         },
-        MostLikedPosts() {
-            const sortedPosts = [...this.posts].sort((a, b) => b.likes - a.likes);
-            return sortedPosts.slice(0, 5);
+        likes() {
+            return this.likeStore.likes
         },
+        mostLikedPosts() {
+            return this.likeStore.mostLikedPosts()
+        }
     },
     methods: {
         getComment(id) {
             return this.commentStore.getCurrentComments(id) && this.commentStore.getCurrentComments(id).length
-        }
+        },
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

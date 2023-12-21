@@ -1,15 +1,15 @@
 <template>
-    <div class="flex flex-col gap-5">
-        <ul class="border-2 rounded">
+    <div class="flex flex-col gap-7">
+        <ul class="border-2 rounded-md py-1">
             <h1>Most Popular Tags</h1>
             <li v-for="(count, tag) in MostPopularTags" :key="tag">
-                <div class="flex flex-row items-center justify-start border-t pl-2 py-1">
+                <div class="flex flex-row items-center justify-start border-t pl-2 py-2">
                 <nuxt-link :to="'tags/' + tag" class="text-sm hover:text-[var(--light-text)]">#{{ tag }}</nuxt-link> 
                 <h3 class="text-xs pl-2">{{ count }}Post</h3>
                 </div>
             </li>
         </ul>
-        <ul class="border-2 rounded">
+        <ul class="border-2 rounded-md py-1">
             <h1>Most Popular Users</h1>
             <li class="p-2 border-t" v-for="(user, index) in MostPopularUsers" :key="index">
                 <PostUserCard :userInfo="user" :avatarContainer="'avatar-container-sm'" />

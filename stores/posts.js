@@ -2,6 +2,8 @@ export const usePostStore = defineStore({
   id: "posts",
   state: () => ({
     posts: [],
+    currentPage: 1,
+    postsPerPage: 10,
   }),
   actions: {
     async getPosts() {
@@ -51,7 +53,9 @@ export const usePostStore = defineStore({
       console.log("getUsersPOst çalıştı");
       return this.posts.filter((e) => e.author_id === id);
     },
-
+    setPage(page) {
+      this.currentPage = page
+    },
     handlePostDate(date) {
       const now = new Date();
       const formattedDate = new Date(date);

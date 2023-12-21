@@ -2,18 +2,19 @@
     <div class="text-center" >
         <PrimeButton :class="isLiked ? 'pi-heart-fill' : 'pi-heart'" @click="updateLikes" class="pi flex flex-row items-center"><p class="inline">{{ postLike() }}</p></PrimeButton>
     </div>
-    <div v-show="showDialog" class="backgroundBlur">
-                <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
-                    <template #header>
-                        <h3 class=" w-2/3 mx-auto">
-                            You need to sign in to like the posts
-                        </h3>
-                    </template>
-                    <div class="w-full text-center my-2 p-1 rounded">
-                        <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
-                    </div>
-                </PrimeDialog>
+    <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3 z-50" v-model:visible="showDialog" modal header="Header">
+            <template #header>
+                <h3 class=" w-2/3 mx-auto">
+                    You need to sign in to like the posts
+                </h3>
+            </template>
+            <div class="w-full text-center my-2 p-1 rounded">
+                <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
             </div>
+        </PrimeDialog>
+    <div v-show="showDialog" class="backgroundBlur">
+
+    </div>
 </template>
 
 <script>
