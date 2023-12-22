@@ -1,7 +1,7 @@
 <template>
     <div>
         <ProfileAvatar :userInfo="userInfo.user_metadata" />
-        <PrimeFileUpload v-if="editAccount"  class="border rounded p-1 text-xs p-fileupload-file-thumbnail" mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @upload="uploadAvatar" :auto="true" chooseLabel="Edit Avatar" />
+        <PrimeFileUpload v-if="editAccount"  class="border rounded p-1 text-xs p-fileupload-file-thumbnail" mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @upload="uploadAvatar" :auto="true" :chooseLabel="$t('Edit Avatar')" />
     </div>
 </template>
 

@@ -7,8 +7,8 @@
             <h3>{{ userData.email }}</h3>
             <h3 v-show="userData.user_metadata.username">@{{ userData.user_metadata.username }}</h3>
        </div>
-       <div class="flex flex-col h-[100%] justify-end">
-            <h5 class="text-xs">Joined at {{ handleDate }}</h5>
+       <div class="flex flex-col h-[100%] w-1/4 justify-end">
+            <h5 class="text-xs flex wrap">{{ $t('Joined at')+ ' ' + handleDate }}</h5>
         </div>
     </div>
     <HomePostCard class="rounded-none" :posts="getUsersPosts" />

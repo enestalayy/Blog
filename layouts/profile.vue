@@ -3,14 +3,14 @@
         <header class="shadow-sm bg-white w-full">
             <NavBar />
         </header>
-        <div class="flex flex-row my-5 items-start">
-            <aside class="w-1/5 rounded text-center">
+        <div class="flex flex-row mt-5 items-start">
+            <aside class="w-1/5 rounded text-center sticky top-3">
                 <HomeLeftAside />
             </aside>
         <main class="w-1/2 rounded mx-auto text-center">
             <slot />
         </main>
-        <aside class="w-1/5 rounded text-center">
+        <aside class="w-1/5 rounded text-center sticky top-3 pr-1">
             <HomeRightAside />
         </aside>
         </div>

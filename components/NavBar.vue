@@ -5,9 +5,13 @@
                     <img src=".././assets/images/2023-12-10-removebg-preview.png" class="h-8" alt="image">
                 </nuxt-link>
                 <PostEditPost class=" border-2 border-[beige] rounded" :post="''" />
-                <button @click="sessionStore.navigateToHome()">zort</button>
-                {{ darkMode }}
-                <div>
+                <div class="flex flex-row items-center">
+                    <div v-if="!getUser" class="flex flex-row items-center">
+                        <NuxtLink v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">
+                            <span class="p-2">{{ locale.code === $i18n.locale ? ' ' : locale.name }}</span>
+                        </NuxtLink>
+                        <button class="p-2" :class="darkMode ? 'pi pi-moon' : 'pi pi-sun'" @click="localeStore.toggleDarkMode()" ></button>
+                    </div>
                     <ProfileAvatar v-if="getUser"  @click="showMenu = !showMenu"  class="cursor-pointer relative" :userInfo="getUser.user_metadata" :avatarContainer="'avatar-container-md'" />
                     <nuxt-link v-else :to="localePath({ name: 'auth' })"> Sign in</nuxt-link>
                     <ul :class="{ 'menu-show': showMenu }" class="flex flex-row items-center bg-[var(--light-text)] pr-2 py-2 menu-transition">

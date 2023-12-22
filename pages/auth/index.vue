@@ -1,6 +1,6 @@
 <template>
   <section id="form" class="flex flex-col items-center justify-start mt-[10vh] mx-auto h-screen text-white-500">
-        <div class="mx-auto mt-5 z-50 border-2 border-[#41B883] rounded w-1/2 h-7">
+        <div class="mx-auto mt-5 z-50 border-2 border-[#41B883] rounded w-full h-7">
             <button @click="showLoginForm" :class="{ 'active': activeForm === 'login'}" class="border-r-2 border-[#41B883] h-full text-center w-1/2" >{{ $t('logIn') }}</button>
             <button @click="showRegisterForm" :class="{ 'active': activeForm === 'register'}" class="border-l-2 border-[#41B883] h-full text-center w-1/2" >{{ $t('signUp') }}</button>
         </div>

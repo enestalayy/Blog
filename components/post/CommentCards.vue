@@ -3,7 +3,7 @@
         <div v-if="showComment" class="card flex flex-col justify-content-center mt-5 ease-in duration-600">
             <form @submit="shareComment" class="flex flex-col gap-2">
                 <span class="w-2/3 mx-auto relative">
-                    <PrimeTextarea required placeholder="Comment here..." id="comment" class=" w-full rounded-md p-2" v-model="comment"  rows="2" cols="30" autoResize />
+                    <PrimeTextarea required :placeholder="$t('Comment here') + '...'" id="comment" class=" w-full rounded-md p-2 border-2 border-[var(--light-text)] bg-transparent" v-model="comment"  rows="2" cols="30" autoResize />
                     <PrimeButton class="absolute bottom-3 right-5 border p-1 px-1 rounded" type="submit" label="Share" raised  />
                 </span>
             </form>

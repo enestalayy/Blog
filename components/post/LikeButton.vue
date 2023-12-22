@@ -5,19 +5,6 @@
             <p class="inline">{{ postLike() }}</p>
         </PrimeButton>
     </div>
-    <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3 z-50" v-model:visible="showDialog" modal header="Header">
-            <template #header>
-                <h3 class=" w-2/3 mx-auto">
-                    You need to sign in to like the posts
-                </h3>
-            </template>
-            <div class="w-full text-center my-2 p-1 rounded">
-                <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
-            </div>
-        </PrimeDialog>
-    <div v-show="showDialog" class="backgroundBlur">
-
-    </div>
 </template>
 
 <script>
@@ -64,11 +51,11 @@
                     } catch (error) {
                         console.error("Like error:", error);
                     }
-                }else this.showDialog = true
+                }else this.postStore.showDialog('likePost')
             },
             postLike() {
                 const postLike = this.getLikes.filter((e) => e.post_id === this.post.id)
-                return postLike.length === 0 ? '' : postLike.length + 'like'
+                return postLike.length === 0 ? '' : postLike.length + this.$t('like')
             },
             
         },

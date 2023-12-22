@@ -3,7 +3,7 @@
         <header class="shadow-sm bg-white w-full">
             <NavBar />
         </header>
-        <div class="flex flex-row my-5 items-start">
+        <div class="flex flex-row mt-5 items-start">
             <aside class="w-1/5 rounded text-center">
                 <HomeLeftAside />
             </aside>

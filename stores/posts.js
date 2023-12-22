@@ -4,6 +4,8 @@ export const usePostStore = defineStore({
     posts: [],
     currentPage: 1,
     postsPerPage: 10,
+    showDialog: false,
+    dialogMessage: ''
   }),
   actions: {
     async getPosts() {
@@ -58,6 +60,7 @@ export const usePostStore = defineStore({
     },
     handlePostDate(date) {
       const now = new Date();
+      const{ t } = useI18n()
       const formattedDate = new Date(date);
       const diffInSeconds = Math.floor((now - formattedDate) / 1000);
       const minutes = Math.floor(diffInSeconds / 60) % 60;
@@ -65,13 +68,13 @@ export const usePostStore = defineStore({
       const days = Math.floor(diffInSeconds / (3600 * 24));
 
       if (days > 1) {
-        return `${days}d`;
+        return `${days}${t('d')}`;
       } else if (hours > 1) {
-        return `${hours}h`;
+        return `${hours}${t('h')}`;
       } else if (minutes > 1) {
-        return `${minutes}m`;
+        return `${minutes}${t("m")}`;
       } else {
-        return `just now`;
+        return `${t('just now')}`;
       }
     },
     async deletePost(postId) {
@@ -90,5 +93,9 @@ export const usePostStore = defineStore({
         throw error
       }
     },
+    activeDialog(message) {
+      this.showDialog = true
+      this.dialogMessage = message
+    }
   },
 });

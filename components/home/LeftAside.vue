@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-5">
-        <h1 class="text-xl border-2 rounded">Most Liked Posts</h1>
+        <h1 class="text-xl border-2 rounded">{{ $t('Most Liked Posts') }}</h1>
         <PrimeFieldset v-if="mostLikedPosts" v-for="(post, index) in mostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative">
             <template #legend>
                 <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
@@ -15,9 +15,9 @@
             <div v-html="post.content" class="m-0 text-xs break-all line-clamp-3"></div>
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
-                <h3 v-show="getComment(post.id)">{{ getComment(post.id) + 'comment' }}</h3>
+                <h3 v-show="getComment(post.id)">{{ getComment(post.id) + $t('comment') }}</h3>
                 <PrimeButton @click="sessionToPost(post.id)" class="border rounded p-1 text-sm" >
-                    View Post <i class="pi pi-arrow-right text-xs pl-1"></i>
+                    {{ $t('View Post') }} <i class="pi pi-arrow-right text-xs pl-1"></i>
                 </PrimeButton>
             </div>
             <PostEditPost :post="post" v-show="user && (user.id === post.author_id)" />
@@ -36,8 +36,12 @@
             sessionStore: useSessionStore(),
             commentStore: useCommentStore(),
             likeStore: useLikesStore(),
-            postLikes: {}
+            postLikes: {},
+            showDialog: false
         };
+    },
+    mounted() {
+        this.sessionStore.getSession();
     },
     computed: {
         posts() {
@@ -50,7 +54,7 @@
             return this.likeStore.mostLikedPosts()
         },
         getSession(){
-            return this.sessionStore.getSession()
+            return this.sessionStore.session
         }
     },
     methods: {
@@ -60,7 +64,7 @@
         sessionToPost(postId) {
             this.getSession
             ? this.router.push(this.localePath(`/post/${postId}`))
-            : this.showDialog = true   
+            : this.postStore.activeDialog('viewPost')   
         },
     }
 }

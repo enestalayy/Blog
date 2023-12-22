@@ -4,13 +4,13 @@
             <NavBar class="w-[100vw]" />
         </header>
         <div class="flex flex-row mt-5 items-start pl-1">
-            <aside class="w-1/5 fixed rounded text-center sticky top-3">
+            <aside class="w-1/5 rounded text-center sticky top-3">
                 <HomeLeftAside />
             </aside>
         <main class="w-2/5 rounded mx-auto text-center">
             <slot />
         </main>
-        <aside class="w-1/6 fixed right-0 rounded text-center sticky top-3 pr-1">
+        <aside class="w-1/6 right-0 rounded text-center sticky top-3 pr-1">
             <HomeRightAside />
         </aside>
         </div>

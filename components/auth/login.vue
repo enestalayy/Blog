@@ -8,12 +8,13 @@
             <PrimePassword @input="checkPassword" v-model="password" class="relative" inputId="password" toggle-mask :feedback="false"/>
             <label class="absolute left-2" for="password">{{ $t('password') }}</label>
         </span>
-        <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid" class="z-10 rounded p-1 relative" @mouseover="showWarning = true" @mouseout="showWarning = false">
+        <button :class="{ 'dark-mode-authBtn': isDarkMode, 'light-mode-authBtn': !isDarkMode }" :disabled="!formValid" class="z-10 rounded p-1 relative" @mouseover="showWarning = true" @mouseout="showWarning = false">
             {{ $t('logIn') }}
-            <PrimeInlineMessage v-if="showWarning && !formValid && this.email && this.password" class="text-sm whitespace-nowrap w-fit flex items-center" severity="warning">
+            <PrimeInlineMessage v-if="showWarning && !formValid && this.email && this.password" class="text-sm whitespace-nowrap w-fit flex items-center absolute left-[-50%] bot-[-110%]" severity="warning">
                 <span class="pl-1">{{ $t('incorrectError') }}</span>
             </PrimeInlineMessage>
         </button>
+        
         <button @click="forgotPassword = true" class="z-10 text-sm forgotBtn">
             {{ $t('forgot') }}
         </button>
@@ -39,6 +40,7 @@
                 supabase: useSupabaseClient(),
                 localeStore: useLocaleStore(),
                 inputCheck: useInputCheck(),
+                localePath: useLocalePath(),
                 email: '',
                 password: '',
                 formValid: false,
@@ -72,7 +74,7 @@
                     });
 
                     error && (this.showWarning = true);
-                    data.user && this.$router.push('/');
+                    data.user && this.$router.push(this.localePath({ name: "index" }));
                 } catch (error) {
                     console.error('Bir hata oluştu:', error.message);
                 }

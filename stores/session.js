@@ -46,10 +46,9 @@ export const useSessionStore = defineStore({
         const supabase = useSupabaseClient();
         const { error } = await supabase.auth.signOut();
         error && console.error(error)
+        this.navigateToHome();
       } catch (error) {
         alert(error.message);
-      } finally {
-        this.navigateToHome();
       }
     },
     async deleteUser(id) {

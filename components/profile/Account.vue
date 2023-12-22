@@ -8,7 +8,7 @@
           <button v-if="editAccount" :disabled="!nameValid" @click="this.editMetaData(['full_name', newName])" class="pi pi-pencil ml-2 p-1 border rounded-full"></button>
         </div>
         <div class="flex flex-row items-center ">
-          <input v-if="editAccount" v-model="username" required :placeholder="metaData.username ? metaData.username : 'Add Username'" type="text">
+          <input v-if="editAccount" v-model="username" required :placeholder="metaData.username ? metaData.username : $t('Add Username')" type="text">
           <h3 v-else v-if="metaData.username">@{{ metaData.username }}</h3>
           <button v-if="editAccount" :disabled="username.length < 4" @click="this.editMetaData(['username', username])" class="pi pi-pencil ml-2 p-1 border rounded-full"></button>
         </div>
@@ -19,24 +19,24 @@
           <PrimeToast class="" />
         </div>
         <div class="flex flex-row items-center">
-          <PrimeInputMask v-if="editAccount" mask="(+99) 999-999-9999"  v-model="newPhone" type="text"  :placeholder="metaData.phone ? metaData.phone : 'Add Phone Number'" />
+          <PrimeInputMask v-if="editAccount" mask="(+99) 999-999-9999"  v-model="newPhone" type="text"  :placeholder="metaData.phone ? metaData.phone : $t('Add Phone Number')" />
           <h3 v-else v-if="metaData.phone">{{ metaData.phone }}</h3>
           <button v-if="editAccount" :disabled="!newPhone" @click="this.editMetaData(['phone', newPhone])" class="pi pi-pencil ml-2 p-1 border rounded-full"></button>
         </div>
     </div>
     <div class="flex flex-col justify-end">
         <PrimeSpeedDial :model="items" :radius="60" showIcon="pi pi-cog" type="quarter-circle" direction="down-left" :style="{ right: '8px', top: 0 }" />
-        <h5 class="text-xs">Joined at {{ handleDate }}</h5>
+        <h5 class="text-xs"> {{ $t('Joined at') + handleDate }}</h5>
     </div>
     <div v-show="showDelete" class="backgroundBlur">
       <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDelete" modal header="Header">
           <template #header>
               <h3 class=" w-2/3 mx-auto">
-                  Are you sure? Your account and all your activities will be deleted.
+                  {{ $t('sureDelete') }}
               </h3>
           </template>
           <div class="w-full text-center my-2 p-1 rounded">
-            <button @click="showDelete = false" class="bg-[var(--light-text)] p-2 rounded-md mx-2 ">No</button>
+            <button @click="showDelete = false" class="bg-[var(--light-text)] p-2 rounded-md mx-2 ">{{ $t('No') }}</button>
             <button class="bg-[var(--light-text)] p-2 rounded-md mx-2" @click="deleteAccount"><i class="pi pi-trash pr-1"></i>Yes I am</button>
           </div>
       </PrimeDialog>
@@ -61,12 +61,12 @@
         showDelete: false,
         items: [
           {
-            label: 'Add',
+            label: this.$t('Add'),
             icon: 'pi pi-user-edit',
             command: () => { this.sessionStore.toggleEditAccount()  }
           },
           {
-            label: 'Delete',
+            label: this.$t('Delete'),
             icon: 'pi pi-trash',
             command: () => {
               this.showDelete = true

@@ -18,24 +18,13 @@
                     <i class="pi pi-comment"></i>
                     {{ getComments(post.id) && getComments(post.id).length + 'comment' }}
                 </button>
-                <button @click="sessionToPost(post.id)"><PrimeButton class="border rounded p-1" >View Post <i class="pi pi-arrow-right text-xs pl-1"></i></PrimeButton></button>
+                <button @click="sessionToPost(post.id)"><PrimeButton class="border rounded p-1" >{{ $t('View Post') }} <i class="pi pi-arrow-right text-xs pl-1"></i></PrimeButton></button>
             </div>
             <PrimeToast />
             <PostEditPost v-show="this.user &&(post.author_id === this.user.id)" :post="post" />
-            <PrimeDialog v-if="showDialog" class="bg-[beige] rounded flex flex-col gap-3 p-3" v-model:visible="showDialog" modal header="Header">
-                    <template #header>
-                        <h3 class=" w-2/3 mx-auto">
-                            You need to sign in to see the posts or comments
-                        </h3>
-                    </template>
-                    <div class="w-full text-center my-2 p-1 rounded">
-                        <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
-                    </div>
-                </PrimeDialog>
-            <div v-show="showDialog" class="backgroundBlur">
-            </div>
         </PrimeFieldset>
-        <button v-show="nextPageExists" @click="loadMorePosts">Daha Fazla Göster</button>
+        <WarningDialog />
+        <button v-show="nextPageExists" @click="loadMorePosts">{{ $t('Load More') }}</button>
     </div>
 </template>
 <script>
@@ -48,7 +37,6 @@ export default {
             sessionStore: useSessionStore(),
             commentStore: useCommentStore(),
             router: useRouter(),
-            showDialog: false,
             bottomReached: false
         }
     },
@@ -81,7 +69,7 @@ export default {
         sessionToPost(postId) {
             this.getSession
             ? this.$router.push(this.localePath(`/post/${postId}`))
-            : this.showDialog = true   
+            : this.postStore.activeDialog('viewPost')   
         },
         loadMorePosts() {
             this.postStore.setPage(this.postStore.currentPage + 1);

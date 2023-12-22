@@ -6,13 +6,13 @@
         <PrimeDialog v-model:visible="visible" modal header="Header" class="bg-[beige] rounded-xl dialog" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <template #header>
                 <PostUserCard class="pl-2 p-1" :userInfo="postAuthor" :avatarContainer="'avatar-container-sm'" />
-                <PrimeInputText v-model="title" required class="p-1" placeholder="Type a Title*" />
+                <PrimeInputText v-model="title" required class="p-1" :placeholder="$t('Type a Title') + '*'" />
                 <div class="p-float-label w-40 relative">
                     <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="translatedTags" optionLabel="name" class="w-full p-1 text-[beige] rounded bg-[var(--dark-green)] " />
-                    <label class="absolute text-[beige] left-0" for="dd-tag">Select a Tag*</label>
+                    <label class="absolute text-[beige] left-0" for="dd-tag">{{ $t('Select a Tag') }}*</label>
                 </div>
             </template>
-            <Editor v-model="content" placeholder="Type Here..." editorStyle="height: 320px">
+            <Editor v-model="content" :placeholder="$t('Type here') + '...'" editorStyle="height: 320px">
                 <template v-slot:toolbar>
                     <span class="ql-formats w-full flex flex-row items-center justify-between text-red-500">
                         <select class="ql-font" v-tooltip.bottom="'Font Style'"></select>
@@ -26,20 +26,10 @@
             </Editor>
             <template  #footer>
                 <PrimeButton v-if="props.post" @click="updatePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Update Post" autofocus />
-                <PrimeButton v-else @click="sharePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" label="Share Post" autofocus />
+                <PrimeButton v-else @click="sharePost" class="w-full text-center border rounded hover:text-[beige] hover:bg-[var(--dark-green)]" :label="$t('Share Post')" autofocus />
             </template>
         </PrimeDialog>
-        <PrimeDialog class="bg-[beige] rounded flex flex-col gap-3 p-3 z-50" v-model:visible="showDialog" modal header="Header">
-            <template #header>
-                <h3 class=" w-2/3 mx-auto">
-                    You need to sign in to create a post
-                </h3>
-            </template>
-            <div class="w-full text-center my-2 p-1 rounded">
-                <nuxt-link class="bg-[var(--light-text)] p-2 rounded-md" :to="localePath({ name: 'auth' })">Go to Sign in Page <i class="pi pi-arrow-right"></i></nuxt-link>
-            </div>
-        </PrimeDialog>
-        <div v-show="visible || showDialog" class="backgroundBlur"></div>
+        <div v-show="visible" class="backgroundBlur"></div>
     </div>
 </template>
 
@@ -53,7 +43,6 @@ const postStore = usePostStore()
 const sessionStore = useSessionStore()
 const postAuthor = user.value ? user.value : null;
 const visible = ref(false);
-const showDialog = ref(false)
 const Tags = ref([
     { name: 'Technology Trends' },
     { name: 'Space Exploration' },
@@ -113,16 +102,16 @@ const updatePost = async () => {
 const createPost = () => {
     if(sessionStore.session) {
         visible.value = true
-    }else showDialog.value = true
+    }else postStore.activeDialog('createPost')
 }
 const items = ref([
   {
-    label: 'Edit Post',
+    label: t('Edit Post'),
     icon: 'pi pi-file-edit',
     command: () => { visible.value = true  }
   },
   {
-    label: 'Delete Post',
+    label: t('Delete Post'),
     icon: 'pi pi-trash',
     command: () => { postStore.deletePost(props.post.id)  }
   },

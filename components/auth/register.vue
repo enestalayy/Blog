@@ -24,7 +24,7 @@
                     class="pi pi-info-circle absolute left-[-25px] top-1 text-xl">
                 </span>
             </span>
-            <ul id="errorPassword" v-if="showPasswordError" :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" class="mt-0 whitespace-nowrap w-fit absolute z-20 mx-0 top-36 rounded">
+            <ul id="errorPassword" v-if="showPasswordError" :class="{ 'dark-mode-authBtn': isDarkMode, 'light-mode-authBtn': !isDarkMode }" class="mt-0 whitespace-nowrap w-fit absolute z-20 mx-0 top-36 rounded">
                 <li v-if="passwordError" v-for="(error, index) in passwordError" class="text-sm" :key="index">
                     <span class="p-2">{{i18n.t(`${error}`)}}</span>
                 </li>
@@ -34,7 +34,7 @@
                 <label class="absolute left-2"  for="phone">{{ $t('phone') }}</label>
             </span>
             <PrimeToast class="rounded w-fit bg-[var(--light-text)]" />
-            <button :class="{ 'dark-modeBtn': isDarkMode, 'light-modeBtn': !isDarkMode }" :disabled="!formValid" class="z-10 bg-[#41B883] rounded p-1">
+            <button :class="{ 'dark-mode-authBtn': isDarkMode, 'light-mode-authBtn': !isDarkMode }" :disabled="!formValid" class="z-10 bg-[#41B883] rounded p-1">
                 {{ $t('signUp') }}
             </button>
         </form>

@@ -34,7 +34,7 @@
                 </div>
             </div>
         </PrimeFieldset>
-        <h3 v-show="!comments.length">No comments yet</h3>
+        <h3 v-show="!comments.length">{{ $t('No comments yet') }}</h3>
         <PostCommentCards :showComment="showComment" :postId="postId" />
     </div>
 </template>
