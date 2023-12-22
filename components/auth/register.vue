@@ -1,20 +1,20 @@
 <template>
     <form @submit.prevent="submitRegister" class="flex flex-col items-center mt-5 gap-7" >
-            <span class="p-float-label w-fit z-10">
+            <span class="p-float-label w-full z-10">
                 <PrimeInputText @input="checkFullName" required v-model="name" @focus="nameFocused = true" @blur="nameFocused = false" class="relative" id="name" />
                 <label class="absolute left-2" for="name">{{ $t('fullName') }}*</label>
                 <PrimeInlineMessage v-if="!nameValid && !nameFocused && name.length > 0" class="absolute top-7 left-0 w-fit flex items-center" severity="info">
                     <span class="pl-1 text-sm whitespace-nowrap">{{ $t('nameError') }}</span>
                 </PrimeInlineMessage>
             </span>
-            <span class="p-float-label w-fit z-10">
+            <span class="p-float-label w-full z-10">
                 <PrimeInputText @input="checkEmail" required v-model="email" class="relative" @focus="emailFocused = true" @blur="emailFocused = false" id="email" />
                 <label class="absolute left-2" for="email">{{ $t('email') }}*</label>
                 <PrimeInlineMessage v-if="!emailValid && !emailFocused && email.length > 0" class="absolute top-7 left-0 w-fit flex items-center" severity="info">
                     <span class="pl-1 text-sm whitespace-nowrap">{{ $t('emailError') }}</span>
                 </PrimeInlineMessage>
             </span>
-            <span class="p-float-label w-fit z-10">
+            <span class="p-float-label w-full z-10">
                 <PrimePassword required v-model="password" @input="checkPassword" @focus="passwordFocused = true" @blur="passwordFocused = false" toggle-mask :feedback="false" />
                 <label class="absolute left-2" for="password">{{ $t('password') }}*</label>
                 <span
@@ -29,7 +29,7 @@
                     <span class="p-2">{{i18n.t(`${error}`)}}</span>
                 </li>
             </ul>
-            <span class="p-float-label w-fit z-10">
+            <span class="p-float-label w-full z-10">
                 <PrimeInputMask v-model="phone" mask="(+99) 999-999-9999" />
                 <label class="absolute left-2"  for="phone">{{ $t('phone') }}</label>
             </span>

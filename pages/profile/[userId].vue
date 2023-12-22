@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-if="userData" class="w-full h-32 px-2 border rounded flex flex-row items-center justify-between max-md:text-sm">
+    <div v-if="userData" class="w-full h-32 px-2 border rounded flex flex-row items-center justify-between max-md:text-xs">
         <ProfileAvatar :userInfo="userData.user_metadata" :avatarContainer="'avatar-container-xl'" />
        <div class="flex flex-col items-start">
             <h3>{{ userData.user_metadata.full_name }}</h3>
-            <h3>{{ userData.email }}</h3>
+            <h3 class="line-clamp-1">{{ userData.email }}</h3>
             <h3 v-show="userData.user_metadata.username">@{{ userData.user_metadata.username }}</h3>
        </div>
        <div class="flex flex-col h-[100%] w-1/4 justify-end">
