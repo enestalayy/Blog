@@ -6,7 +6,7 @@
         </div>
         <div class="mt-10 h-3/4 relative" :class="{ flipLeft: activeForm === 'register', flipRight: activeForm === 'login'}">
             <AuthLogin class="absolute left-[-95px] loginForm" :class="{flip: activeForm === 'login'}" v-if="activeForm === 'login'"  />
-            <AuthRegister class="absolute left-[95px] signUpForm" v-if="activeForm === 'register'"  />
+            <AuthRegister class="absolute left-[-95px] signUpForm" v-if="activeForm === 'register'"  />
         </div>
         <ul class="animate">
                 <li></li>
