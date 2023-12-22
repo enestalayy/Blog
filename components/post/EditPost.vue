@@ -6,9 +6,9 @@
         <PrimeDialog v-model:visible="visible" modal header="Header" class="bg-[beige] rounded-xl dialog" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
             <template #header>
                 <PostUserCard class="pl-2 p-1" :userInfo="postAuthor" :avatarContainer="'avatar-container-sm'" />
-                <PrimeInputText v-model="title" required class="p-1" :placeholder="$t('Type a Title') + '*'" />
+                <PrimeInputText v-model="title" required class="p-1 max-md:w-[100px] max-md:text-xs" :placeholder="$t('Type a Title') + '*'" />
                 <div class="p-float-label w-40 relative">
-                    <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="translatedTags" optionLabel="name" class="w-full p-1 text-[beige] rounded bg-[var(--dark-green)] " />
+                    <PrimeDropdown v-model="selectedTag" required  inputId="dd-tag" :options="translatedTags" optionLabel="name" class="w-full p-1 max-md:text-xs text-[beige] rounded bg-[var(--dark-green)] " />
                     <label class="absolute text-[beige] left-0" for="dd-tag">{{ $t('Select a Tag') }}*</label>
                 </div>
             </template>
