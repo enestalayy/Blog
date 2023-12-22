@@ -19,20 +19,20 @@
                             <i class="pi pi-angle-right"></i>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <li class="border w-full text-center rounded">
+                            <li class="border w-full text-center max-md:text-left rounded">
                                 <nuxt-link :to="localePath({ name: 'profile' })">
                                     <h2 class="p-2">Profile</h2>
                                 </nuxt-link>
                             </li>
-                            <li class="border w-full text-center rounded">
+                            <li class="border w-full text-center max-md:text-left rounded">
                                 <button class="p-2" :class="darkMode ? 'pi pi-moon' : 'pi pi-sun'" @click="localeStore.toggleDarkMode()" ></button>
                             </li>
-                            <li class="border w-full text-center rounded">
+                            <li class="border w-full text-center max-md:text-left rounded">
                                 <NuxtLink v-for="locale in availableLocales" :key="locale.code" :to="switchLocalePath(locale.code)">
                                     <span class="p-2">{{ locale.code === $i18n.locale ? ' ' : locale.name }}</span>
                                 </NuxtLink>
                             </li>
-                            <li class="border w-full text-center rounded whitespace-nowrap">
+                            <li class="border w-full text-center max-md:text-left rounded whitespace-nowrap">
                                 <button class="p-2" @click="sessionStore.signOut" >Sign out</button>
                             </li>
                         </div>
