@@ -67,9 +67,9 @@
     #form {
         width: 250px !important;
     }
-    /* .loginForm, .signUpForm {
+    .signUpForm {
         left: -93px;
-    } */
+    }
 }
 .animate {
     height: 100%;
