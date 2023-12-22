@@ -3,7 +3,7 @@
         <header class="shadow-sm bg-white w-full">
             <NavBar />
         </header>
-        <div class="flex flex-row mt-5 items-start">
+        <div class="flex flex-row items-start">
             <aside :class="{'leftAside': isLeftAside, 'absoluteLeftAside': !isLeftAside}" class="max-md:w-[70vw] md:w-1/4 max-xl:w-1/4 xl:w-1/5 md:rounded max-md:text-left md:text-center sticky top-3 md:mt-5">
                 <HomeLeftAside />
             </aside>

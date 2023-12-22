@@ -5,8 +5,8 @@
             <button @click="showRegisterForm" :class="{ 'active': activeForm === 'register'}" class="border-l-2 border-[#41B883] h-full text-center w-1/2 max-md:text-sm" >{{ $t('signUp') }}</button>
         </div>
         <div class="mt-10 h-3/4 relative" :class="{ flipLeft: activeForm === 'register', flipRight: activeForm === 'login'}">
-            <AuthLogin class="absolute left-[-87.5px]" :class="{flip: activeForm === 'login'}" v-if="activeForm === 'login'"  />
-            <AuthRegister class="absolute left-[-87.5px]" v-if="activeForm === 'register'"  />
+            <AuthLogin class="absolute left-[-87.5px] loginForm" :class="{flip: activeForm === 'login'}" v-if="activeForm === 'login'"  />
+            <AuthRegister class="absolute left-[-87.5px] signUpForm" v-if="activeForm === 'register'"  />
         </div>
         <ul class="animate">
                 <li></li>
@@ -66,6 +66,9 @@
 @media (max-width: 639px) {
     #form {
         width: 250px !important;
+    }
+    .loginForm, .signUpForm {
+        left: -93px;
     }
 }
 .animate {

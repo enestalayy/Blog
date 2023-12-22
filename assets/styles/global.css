@@ -110,7 +110,21 @@ svg.p-icon {
     border-radius: 50%;
     overflow: hidden;
 }
+@media (max-width: 767px) {
+    .avatar-container-xl {
+        width: 60px;
+        height: 60px;
+    }
+    .avatar-container-md {
+    width: 30px;
+    height: 30px;
+    }
+.avatar-container-sm {
+    width: 20px;
+    height: 20px;
 
+    }
+}
 
 
 .dark-mode {
