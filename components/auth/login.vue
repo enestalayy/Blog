@@ -1,16 +1,16 @@
 <template>
     <form v-if="!forgotPassword" @submit.prevent="handleLogin" class="flex flex-col items-center mt-5 gap-7">
-        <span class="p-float-label w-fit z-10">
+        <span class="p-float-label w-full z-10">
             <PrimeInputText @input="checkEmail" v-model="email" class="relative" id="email" />
             <label class="absolute left-2" for="email">{{ $t('email') }}</label>
         </span>
-        <span class="p-float-label w-fit z-10">
+        <span class="p-float-label w-full z-10">
             <PrimePassword @input="checkPassword" v-model="password" class="relative" inputId="password" toggle-mask :feedback="false"/>
             <label class="absolute left-2" for="password">{{ $t('password') }}</label>
         </span>
         <button :class="{ 'dark-mode-authBtn': isDarkMode, 'light-mode-authBtn': !isDarkMode }" :disabled="!formValid" class="z-10 rounded p-1 relative" @mouseover="showWarning = true" @mouseout="showWarning = false">
             {{ $t('logIn') }}
-            <PrimeInlineMessage v-if="showWarning && !formValid && this.email && this.password" class="text-sm whitespace-nowrap w-fit flex items-center absolute left-[-50%] bot-[-110%]" severity="warning">
+            <PrimeInlineMessage v-if="showWarning && !formValid && this.email && this.password" class="text-sm whitespace-nowrap w-full flex items-center absolute left-[-50%] bot-[-110%]" severity="warning">
                 <span class="pl-1">{{ $t('incorrectError') }}</span>
             </PrimeInlineMessage>
         </button>
