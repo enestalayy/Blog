@@ -3,7 +3,7 @@
         <header class="shadow-sm w-full">
             <NavBar  />
         </header>
-        <main :class="{ 'light-mode-auth-form': !isDarkMode }" class="w-3/5 mt-5 mx-auto text-center">
+        <main :class="{ 'light-mode-auth-form': !isDarkMode }" class="max-sm:w-[90vw] sm:w-3/5 mt-5 mx-auto text-center">
             <slot />
         </main>
     </div>

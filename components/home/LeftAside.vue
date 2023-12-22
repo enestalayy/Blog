@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-col gap-5">
+    <div class="flex flex-col gap-5 ">
         <h1 class="text-xl border-2 rounded">{{ $t('Most Liked Posts') }}</h1>
-        <PrimeFieldset v-if="mostLikedPosts" v-for="(post, index) in mostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative">
+        <PrimeFieldset v-if="mostLikedPosts" v-for="(post, index) in mostLikedPosts" :key="index" class="border-2 rounded text-start pl-2 py-2 relative max-md:border-[var(--dark-bg-darkblue)]">
             <template #legend>
-                <div class="flex p-fieldset-legend items-center gap-2 border-2 px-2">
-                    <PostUserCard :userInfo="post.user" :avatarContainer="'avatar-container-sm'" />
+                <div class="flex max-md:border-[var(--dark-bg-darkblue)] p-fieldset-legend items-center gap-2 border-2 px-2">
+                    <PostUserCard  :userInfo="post.user" :avatarContainer="'avatar-container-sm'" />
                 </div>
             </template>
             <div class="flex flex-row items-center px-1 justify-between">
@@ -16,7 +16,7 @@
             <div class="flex items-center justify-around pt-1">
                 <PostLikeButton :post="post" />
                 <h3 v-show="getComment(post.id)">{{ getComment(post.id) + $t('comment') }}</h3>
-                <PrimeButton @click="sessionToPost(post.id)" class="border rounded p-1 text-sm" >
+                <PrimeButton @click="sessionToPost(post.id)" class="border rounded max-md:border-[var(--dark-bg-darkblue)] p-1 text-sm" >
                     {{ $t('View Post') }} <i class="pi pi-arrow-right text-xs pl-1"></i>
                 </PrimeButton>
             </div>
