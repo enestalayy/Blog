@@ -15,7 +15,7 @@
                 <slot :class="{'main': isLeftAside || isRightAside}" />
             </main>
             <button @click="toggleAside('isRightAside')" class="md:hidden h-[100vh] z-20 sticky top-0 bg-[var(--light-text)] p-1"><i :class="isRightAside ? 'pi-arrow-right' : 'pi-arrow-left'" class="pi"></i></button>
-            <aside :class="{'rightAside': isRightAside, 'absoluteRightAside': !isRightAside}" class="max-md:h-[100vh] max-md:w-2/5 max-xl:w-1/5 xl:w-1/6 right-0 rounded text-center sticky top-3 pr-1">
+            <aside :class="{'rightAside': isRightAside, 'absoluteRightAside': !isRightAside}" class="max-md:h-[100vh] max-md:w-2/5 max-xl:w-1/5 xl:w-1/6 right-0 rounded text-center sticky top-3 pr-1 md:mt-5">
                 <HomeRightAside />
             </aside>
         </div>

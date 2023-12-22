@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="userData" class="w-full h-32 px-2 border rounded flex flex-row items-center justify-between">
+    <div v-if="userData" class="w-full h-32 px-2 border rounded flex flex-row items-center justify-between max-md:text-sm">
         <ProfileAvatar :userInfo="userData.user_metadata" :avatarContainer="'avatar-container-xl'" />
        <div class="flex flex-col items-start">
             <h3>{{ userData.user_metadata.full_name }}</h3>

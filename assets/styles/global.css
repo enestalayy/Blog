@@ -116,13 +116,14 @@ svg.p-icon {
         height: 60px;
     }
     .avatar-container-md {
-    width: 30px;
-    height: 30px;
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
     }
-.avatar-container-sm {
-    width: 20px;
-    height: 20px;
-
+    .avatar-container-sm {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
     }
 }
 
