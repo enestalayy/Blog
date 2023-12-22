@@ -1,8 +1,8 @@
 <template>
   <section id="form" class="flex flex-col items-center justify-start mt-[10vh] mx-auto h-screen text-white-500 w-full">
-        <div class="mx-auto mt-5 z-50 border-2 border-[#41B883] rounded w-full h-7">
-            <button @click="showLoginForm" :class="{ 'active': activeForm === 'login'}" class="border-r-2 border-[#41B883] h-full text-center w-1/2" >{{ $t('logIn') }}</button>
-            <button @click="showRegisterForm" :class="{ 'active': activeForm === 'register'}" class="border-l-2 border-[#41B883] h-full text-center w-1/2" >{{ $t('signUp') }}</button>
+        <div class="mx-auto mt-5 z-50 border-2 border-[#41B883] rounded w-1/2 h-7">
+            <button @click="showLoginForm" :class="{ 'active': activeForm === 'login'}" class="border-r-2 border-[#41B883] h-full text-center w-1/2 max-md:text-sm" >{{ $t('logIn') }}</button>
+            <button @click="showRegisterForm" :class="{ 'active': activeForm === 'register'}" class="border-l-2 border-[#41B883] h-full text-center w-1/2 max-md:text-sm" >{{ $t('signUp') }}</button>
         </div>
         <div class="mt-10 h-3/4 relative" :class="{ flipLeft: activeForm === 'register', flipRight: activeForm === 'login'}">
             <AuthLogin class="absolute left-[-87.5px]" :class="{flip: activeForm === 'login'}" v-if="activeForm === 'login'"  />
@@ -61,6 +61,11 @@
 @media (max-width: 767px) {
     #form {
         width: 290px !important;
+    }
+}
+@media (max-width: 639px) {
+    #form {
+        width: 250px !important;
     }
 }
 .animate {
