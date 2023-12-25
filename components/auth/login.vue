@@ -19,8 +19,8 @@
             {{ $t('forgot') }}
         </button>
         <div>{{ $t('loginWith') }}</div>
-        <button @click="handleGoogleLogin" class="z-10 text-sm forgotBtn">
-            Google
+        <button @click="handleGoogleLogin" class="z-10 text-sm forgotBtn border rounded p-1">
+            <i class="pi pi-google"></i>
         </button>
     </form>
     <form @submit.prevent="passwordReset" v-else >
