@@ -1,8 +1,32 @@
 # Nuxt Blog with Supabase
 
+
+## Live Demo
+
+Explore the live demo: [Nuxt Blog with Supabase](https://xblog-blog.vercel.app)
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+   - [Server-Side Rendering](#server-side-rendering)
+   - [Supabase Integration](#supabase-integration)
+   - [Internationalization (i18n)](#internationalization-i18n)
+   - [UI Design and Responsiveness](#ui-design-and-responsiveness)
+   - [PrimeVue for UI Components](#primevue-for-ui-components)
+   - [State Management with Pinia](#state-management-with-pinia)
+   - [Rich Text for Blog Texts](#rich-text-for-blog-texts)
+   - [Tailwind CSS for Styling](#tailwind-css-for-styling)
+   - [Restricted User Features](#restricted-user-features)
+   - [Dynamic Sidebars](#dynamic-sidebars)
+   - [User Account Management](#user-account-management)
+   - [Emphasis on UX Features](#emphasis-on-ux-features)
+    - [Locale Management](#locale-management)
+
+
 ## Overview
 
-This project is a blog website developed using Nuxt.js, implementing server-side rendering to enhance user experience and improve performance. Supabase is utilized for backend operations, allowing seamless handling of database, storage, and authentication tasks. Users can log in using Google OAuth.
+Welcome to the Blog site! This project is a feature-rich blog website developed using Nuxt.js for server-side rendering, offering an enhanced user experience and improved performance. Backend operations are seamlessly handled through Supabase, covering database management, storage, and authentication. Google OAuth integration allows for user authentication.
 
 ## Features
 
@@ -34,21 +58,9 @@ This project is a blog website developed using Nuxt.js, implementing server-side
 
 - **Emphasis on UX Features:** Prioritizing user experience features throughout the development process.
 
-## Table of Contents
+- **Locale Management:** This project uses a locale store to manage language settings. The locale store is responsible for updating the language and storing it in cookies for a persistent user experience.
 
-1. [Overview](#overview)
-2. [Features](#features)
-   - [Server-Side Rendering](#server-side-rendering)
-   - [Supabase Integration](#supabase-integration)
-   - [Internationalization (i18n)](#internationalization-i18n)
-   - [UI Design and Responsiveness](#ui-design-and-responsiveness)
-   - [PrimeVue for UI Components](#primevue-for-ui-components)
-   - [State Management with Pinia](#state-management-with-pinia)
-   - [Rich Text for Blog Texts](#rich-text-for-blog-texts)
-   - [Tailwind CSS for Styling](#tailwind-css-for-styling)
-   - [Restricted User Features](#restricted-user-features)
-   - [Dynamic Sidebars](#dynamic-sidebars)
-   - [User Account Management](#user-account-management)
-   - [Emphasis on UX Features](#emphasis-on-ux-features)
 
-3. [Table of Contents](#table-of-contents)
+
+
+
