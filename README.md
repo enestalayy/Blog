@@ -1,14 +1,13 @@
 # Nuxt Blog with Supabase
 
 
-## Live Demo
 
-Explore the live demo: [Nuxt Blog with Supabase](https://xblog-blog.vercel.app)
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Features](#features)
+2. [Live Demo](#live-demo)
+3. [Features](#features)
    - [Server-Side Rendering](#server-side-rendering)
    - [Supabase Integration](#supabase-integration)
    - [Internationalization (i18n)](#internationalization-i18n)
@@ -27,6 +26,11 @@ Explore the live demo: [Nuxt Blog with Supabase](https://xblog-blog.vercel.app)
 ## Overview
 
 Welcome to the Blog site! This project is a feature-rich blog website developed using Nuxt.js for server-side rendering, offering an enhanced user experience and improved performance. Backend operations are seamlessly handled through Supabase, covering database management, storage, and authentication. Google OAuth integration allows for user authentication.
+
+## Live Demo
+
+Explore the live demo: [Nuxt Blog with Supabase](https://xblog-blog.vercel.app)
+
 
 ## Features
 
