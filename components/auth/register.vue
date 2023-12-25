@@ -108,7 +108,7 @@
                     }
                     });
                     error && this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
-                    this.toast.add({ severity: 'info', summary: 'Info Message', detail: this.i18n.t(`${signUpToast}`), life: 0 })
+                    this.toast.add({ severity: 'info', summary: 'Info Message', detail: this.i18n.t(`signUpToast`), life: 0 })
                 } catch (error) {
                     this.toast.add({ severity: 'info', summary: 'Info', detail: `${error.message}`, life: 3000 });
                 }
